@@ -38,8 +38,11 @@ CREATE TABLE `airline` (
   UNIQUE KEY `unique_flight_schedule` (`depart_date`,`depart_time`,`depart_loc`,`destination`,`plane_id`),
   KEY `destination_airport_idx` (`destination`),
   KEY `depart_loc_idx` (`depart_loc`),
-  KEY `plane_id_idx` (`plane_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1021 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  KEY `plane_id_idx` (`plane_id`),
+  KEY `FK_origin_destination` (`depart_loc`,`destination`),
+  CONSTRAINT `FK_origin_destination` FOREIGN KEY (`depart_loc`, `destination`) REFERENCES `distance` (`location1`, `location2`),
+  CONSTRAINT `FK_plane_id` FOREIGN KEY (`plane_id`) REFERENCES `airplane` (`plane_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1025 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -48,7 +51,7 @@ CREATE TABLE `airline` (
 
 LOCK TABLES `airline` WRITE;
 /*!40000 ALTER TABLE `airline` DISABLE KEYS */;
-INSERT INTO `airline` VALUES (1001,'2019-07-15','2019-07-15','10:52:00','18:30:00','SFO','CMH',1,200),(1002,'2019-07-15','2019-07-15','06:15:00','11:21:00','LAX','DFW',2,300),(1003,'2019-11-20','2019-11-21','22:47:00','00:31:00','MSP','SAN',3,150),(1004,'2019-12-20','2019-12-21','21:40:00','05:00:00','SEA','DTW',4,450),(1005,'2019-07-18','2019-07-18','15:34:00','22:47:00','MIA','LAX',5,230),(1006,'2019-07-17','2019-07-17','06:00:00','08:18:00','PDX','LGB',6,170),(1007,'2019-10-28','2019-10-29','20:24:00','05:17:00','SEA','MIA',7,550),(1008,'2019-07-16','2019-07-17','22:54:00','07:33:00','SJC','JFK',8,300),(1009,'2019-07-21','2019-07-21','10:05:00','12:50:00','ORD','SJC',9,240),(1010,'2019-07-18','2019-07-18','10:48:00','12:17:00','ONT','SFO',10,180),(1011,'2019-07-18','2019-07-19','22:27:00','08:21:00','OAK','SAN',1,1500),(1012,'2019-07-22','2019-07-22','12:51:00','19:20:00','SFO','MSY',2,2000),(1013,'2019-07-17','2019-07-18','23:55:00','05:06:00','SEA','MSP',3,3000),(1014,'2019-08-01','2019-08-02','21:55:00','06:27:00','SAN','JFK',4,970),(1015,'2019-07-17','2019-07-17','06:59:00','12:27:00','JFK','SJC',5,300),(1016,'2019-09-30','2019-09-30','19:05:00','20:33:00','MCI','LAX',6,540),(1017,'2019-10-13','2019-10-13','11:00:00','15:00:00','ABY','VLD',6,300);
+INSERT INTO `airline` VALUES (1001,'2019-07-15','2019-07-15','10:52:00','18:30:00','SFO','CMH',1,200),(1002,'2019-07-15','2019-07-15','06:15:00','11:21:00','LAX','DFW',2,300),(1003,'2019-11-20','2019-11-21','22:47:00','00:31:00','MSP','SAN',3,150),(1004,'2019-12-20','2019-12-21','21:40:00','05:00:00','SEA','DTW',4,450),(1005,'2019-07-18','2019-07-18','15:34:00','22:47:00','MIA','LAX',5,230),(1006,'2019-07-17','2019-07-17','06:00:00','08:18:00','PDX','LGB',6,170),(1007,'2019-10-28','2019-10-29','20:24:00','05:17:00','SEA','MIA',7,550),(1008,'2019-07-16','2019-07-17','22:54:00','07:33:00','SJC','JFK',8,300),(1009,'2019-07-21','2019-07-21','10:05:00','12:50:00','ORD','SJC',9,240),(1010,'2019-07-18','2019-07-18','10:48:00','12:17:00','ONT','SFO',10,180),(1011,'2019-07-18','2019-07-19','22:27:00','08:21:00','OAK','SAN',1,1500),(1012,'2019-07-22','2019-07-22','12:51:00','19:20:00','SFO','MSY',2,2000),(1013,'2019-07-17','2019-07-18','23:55:00','05:06:00','SEA','MSP',3,3000),(1014,'2019-08-01','2019-08-02','21:55:00','06:27:00','SAN','JFK',4,970),(1015,'2019-07-17','2019-07-17','06:59:00','12:27:00','JFK','SJC',5,300),(1016,'2019-09-30','2019-09-30','19:05:00','20:33:00','MCI','LAX',6,540),(1017,'2019-10-13','2019-10-13','11:00:00','15:00:00','ABY','VLD',6,300),(1024,'2019-08-10','2019-08-10','12:00:00','14:00:00','SJC','SEA',1,350);
 /*!40000 ALTER TABLE `airline` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -138,7 +141,7 @@ CREATE TABLE `booking` (
   KEY `custom_id_idx` (`custom_id`),
   CONSTRAINT `custom_id` FOREIGN KEY (`custom_id`) REFERENCES `customer` (`custom_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `flight_id` FOREIGN KEY (`flight_id`) REFERENCES `airline` (`flight_id`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -147,9 +150,28 @@ CREATE TABLE `booking` (
 
 LOCK TABLES `booking` WRITE;
 /*!40000 ALTER TABLE `booking` DISABLE KEYS */;
-INSERT INTO `booking` VALUES (1,1005,1005,400),(2,1005,1005,400);
+INSERT INTO `booking` VALUES (1,1005,1005,400),(2,1005,1005,400),(4,1003,1001,200),(6,1005,1012,1950);
 /*!40000 ALTER TABLE `booking` ENABLE KEYS */;
 UNLOCK TABLES;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `discount_for_1000_above_ticket` BEFORE INSERT ON `booking` FOR EACH ROW begin
+	if new.payment > 1000 then
+		set new.payment = new.payment-50;
+	end if;
+end */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 
 --
 -- Table structure for table `customer`
@@ -204,9 +226,99 @@ CREATE TABLE `distance` (
 
 LOCK TABLES `distance` WRITE;
 /*!40000 ALTER TABLE `distance` DISABLE KEYS */;
-INSERT INTO `distance` VALUES ('ABY','VLD',90),('JFK','SJC',2564),('LAX','DFW',1233),('MCI','LAX',1361),('MIA','LAX',2340),('MSP','SAN',1531),('OAK','SAN',445),('ONT','SFO',364),('ORD','SJC',1825),('PDX','LGB',847),('SAN','JFK',2581),('SEA','DTW',1922),('SEA','MIA',2722),('SEA','MSP',1395),('SFO','CMH',2117),('SFO','MSY',1909),('SJC','JFK',2564);
+INSERT INTO `distance` VALUES ('ABY','VLD',90),('JFK','SJC',2564),('LAX','DFW',1233),('MCI','LAX',1361),('MIA','LAX',2340),('MSP','SAN',1531),('OAK','SAN',445),('ONT','SFO',364),('ORD','SJC',1825),('PDX','LGB',847),('SAN','JFK',2581),('SEA','DTW',1922),('SEA','MIA',2722),('SEA','MSP',1395),('SFO','CMH',2117),('SFO','MSY',1909),('SJC','JFK',2564),('SJC','SEA',NULL);
 /*!40000 ALTER TABLE `distance` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Dumping routines for database 'AIRLINES'
+--
+/*!50003 DROP PROCEDURE IF EXISTS `booking_flight` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `booking_flight`(
+	in n_custom_id	int(10),
+    in n_flight_id	int(10)
+    )
+begin
+    insert into booking
+    (
+		ticket_id,
+        custom_id,
+        flight_id,
+        payment
+	)
+    values
+    (
+		default,
+        n_custom_id,
+        n_flight_id,
+        (select price from airline where n_flight_id=flight_id)
+	);
+end ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `insert_airlines_schedule` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `insert_airlines_schedule`(
+        in n_depart_date date,
+        in n_arrival_date	date,
+        in n_depart_time	time,
+        in n_arrival_time	time,
+        in n_depart_loc	varchar(10),
+        in n_destination	varchar(10),
+        in n_plane_id	int(10),
+        in n_price int(10)
+	)
+begin
+	insert into airline
+	(	
+		flight_id,
+        depart_date,
+        arrival_date,
+        depart_time,
+        arrival_time,
+        depart_loc,
+        destination,
+        plane_id,
+        price
+	)
+    values
+    (
+		default,
+        n_depart_date,
+        n_arrival_date,
+        n_depart_time,
+        n_arrival_time,
+        n_depart_loc,
+        n_destination,
+        n_plane_id,
+        n_price
+        );
+end ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -217,4 +329,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-07-18 19:34:41
+-- Dump completed on 2019-07-18 21:33:10
