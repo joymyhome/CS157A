@@ -29,7 +29,7 @@ CREATE TABLE `airline` (
   `depart_date` date NOT NULL,
   `arrival_date` date NOT NULL,
   `depart_time` time NOT NULL,
-  `arrval_time` time NOT NULL,
+  `arrival_time` time NOT NULL,
   `depart_loc` varchar(10) NOT NULL,
   `destination` varchar(10) NOT NULL,
   `plane_id` int(10) NOT NULL,
@@ -217,4 +217,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-07-18 17:29:23
+-- Dump completed on 2019-07-18 19:34:41
