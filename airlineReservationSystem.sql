@@ -34,6 +34,7 @@ CREATE TABLE `airline` (
   `destination` varchar(10) NOT NULL,
   `plane_id` int(10) NOT NULL,
   `price` int(10) NOT NULL,
+  `UPDATEAT` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`flight_id`),
   UNIQUE KEY `unique_flight_schedule` (`depart_date`,`depart_time`,`depart_loc`,`destination`,`plane_id`),
   KEY `destination_airport_idx` (`destination`),
@@ -42,7 +43,7 @@ CREATE TABLE `airline` (
   KEY `FK_origin_destination` (`depart_loc`,`destination`),
   CONSTRAINT `FK_origin_destination` FOREIGN KEY (`depart_loc`, `destination`) REFERENCES `distance` (`location1`, `location2`),
   CONSTRAINT `FK_plane_id` FOREIGN KEY (`plane_id`) REFERENCES `airplane` (`plane_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1025 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1035 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -51,7 +52,7 @@ CREATE TABLE `airline` (
 
 LOCK TABLES `airline` WRITE;
 /*!40000 ALTER TABLE `airline` DISABLE KEYS */;
-INSERT INTO `airline` VALUES (1001,'2019-07-15','2019-07-15','10:52:00','18:30:00','SFO','CMH',1,200),(1002,'2019-07-15','2019-07-15','06:15:00','11:21:00','LAX','DFW',2,300),(1003,'2019-11-20','2019-11-21','22:47:00','00:31:00','MSP','SAN',3,150),(1004,'2019-12-20','2019-12-21','21:40:00','05:00:00','SEA','DTW',4,450),(1005,'2019-07-18','2019-07-18','15:34:00','22:47:00','MIA','LAX',5,230),(1006,'2019-07-17','2019-07-17','06:00:00','08:18:00','PDX','LGB',6,170),(1007,'2019-10-28','2019-10-29','20:24:00','05:17:00','SEA','MIA',7,550),(1008,'2019-07-16','2019-07-17','22:54:00','07:33:00','SJC','JFK',8,300),(1009,'2019-07-21','2019-07-21','10:05:00','12:50:00','ORD','SJC',9,240),(1010,'2019-07-18','2019-07-18','10:48:00','12:17:00','ONT','SFO',10,180),(1011,'2019-07-18','2019-07-19','22:27:00','08:21:00','OAK','SAN',1,1500),(1012,'2019-07-22','2019-07-22','12:51:00','19:20:00','SFO','MSY',2,2000),(1013,'2019-07-17','2019-07-18','23:55:00','05:06:00','SEA','MSP',3,3000),(1014,'2019-08-01','2019-08-02','21:55:00','06:27:00','SAN','JFK',4,970),(1015,'2019-07-17','2019-07-17','06:59:00','12:27:00','JFK','SJC',5,300),(1016,'2019-09-30','2019-09-30','19:05:00','20:33:00','MCI','LAX',6,540),(1017,'2019-10-13','2019-10-13','11:00:00','15:00:00','ABY','VLD',6,300),(1024,'2019-08-10','2019-08-10','12:00:00','14:00:00','SJC','SEA',1,350);
+INSERT INTO `airline` VALUES (1001,'2019-07-15','2019-07-15','10:52:00','18:30:00','SFO','CMH',1,200,NULL),(1002,'2019-07-15','2019-07-15','06:15:00','11:21:00','LAX','DFW',2,300,NULL),(1003,'2019-11-20','2019-11-21','22:47:00','00:31:00','MSP','SAN',3,150,NULL),(1004,'2019-12-20','2019-12-21','21:40:00','05:00:00','SEA','DTW',4,450,NULL),(1005,'2019-07-18','2019-07-18','15:34:00','22:47:00','MIA','LAX',5,230,NULL),(1006,'2019-07-17','2019-07-17','06:00:00','08:18:00','PDX','LGB',6,170,NULL),(1007,'2019-10-28','2019-10-29','20:24:00','05:17:00','SEA','MIA',7,550,NULL),(1008,'2019-07-16','2019-07-17','22:54:00','07:33:00','SJC','JFK',8,300,NULL),(1009,'2019-07-21','2019-07-21','10:05:00','12:50:00','ORD','SJC',9,240,NULL),(1010,'2019-07-18','2019-07-18','10:48:00','12:17:00','ONT','SFO',10,180,NULL),(1011,'2019-07-18','2019-07-19','22:27:00','08:21:00','OAK','SAN',1,1500,NULL),(1012,'2019-07-22','2019-07-22','12:51:00','19:20:00','SFO','MSY',2,2000,NULL),(1013,'2019-07-17','2019-07-18','23:55:00','05:06:00','SEA','MSP',3,3000,NULL),(1014,'2019-08-01','2019-08-02','21:55:00','06:27:00','SAN','JFK',4,970,NULL),(1015,'2019-07-17','2019-07-17','06:59:00','12:27:00','JFK','SJC',5,300,NULL),(1016,'2019-09-30','2019-09-30','19:05:00','20:33:00','MCI','LAX',6,540,NULL),(1017,'2019-10-13','2019-10-13','11:00:00','15:00:00','ABY','VLD',6,300,NULL),(1024,'2019-08-10','2019-08-10','12:00:00','14:00:00','SJC','SEA',1,350,NULL),(1026,'2019-08-13','2019-08-10','12:00:00','14:00:00','SJC','SEA',1,350,NULL),(1027,'2019-08-14','2019-08-10','12:00:00','14:00:00','SJC','SEA',1,350,NULL),(1029,'2019-08-11','2019-08-11','15:00:00','14:00:00','SJC','SEA',5,350,NULL),(1031,'2019-08-11','2019-08-11','19:00:00','23:00:00','SJC','SEA',7,350,'2019-07-20 22:17:24'),(1033,'2019-08-08','2019-08-08','19:00:00','13:00:00','SJC','SEA',7,350,'2019-07-20 22:37:00'),(1034,'2019-08-08','2019-08-08','19:00:00','21:00:00','SEA','SJC',7,350,'2019-07-20 22:38:50');
 /*!40000 ALTER TABLE `airline` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -63,9 +64,15 @@ UNLOCK TABLES;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `check_route_exist` BEFORE INSERT ON `airline` FOR EACH ROW begin
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `check_valid_airline_insertion` BEFORE INSERT ON `airline` FOR EACH ROW begin
+	if new.arrival_date < new.depart_date then
+		set new.arrival_date=null;
+	end if;
+    if new.arrival_date = new.depart_date and new.arrival_time < new.depart_time then
+		set new.arrival_time=null;
+	end if;
 	if (new.depart_loc, new.destination) not in (select location1, location2 from distance) then
-		insert into distance values (new.depart_loc, new.destination, null);
+		insert into distance values(new.depart_loc, new.destination, null);
 	end if;
 end */;;
 DELIMITER ;
@@ -136,6 +143,7 @@ CREATE TABLE `booking` (
   `custom_id` int(11) NOT NULL,
   `flight_id` int(10) DEFAULT NULL,
   `payment` int(10) DEFAULT NULL,
+  `UPDATEAT` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`ticket_id`,`custom_id`),
   KEY `flight_id_idx` (`flight_id`),
   KEY `custom_id_idx` (`custom_id`),
@@ -150,7 +158,7 @@ CREATE TABLE `booking` (
 
 LOCK TABLES `booking` WRITE;
 /*!40000 ALTER TABLE `booking` DISABLE KEYS */;
-INSERT INTO `booking` VALUES (1,1005,1005,400),(2,1005,1005,400),(4,1003,1001,200),(6,1005,1012,1950);
+INSERT INTO `booking` VALUES (1,1005,1005,400,NULL),(2,1005,1005,400,NULL),(4,1003,1001,200,NULL),(6,1005,1012,1950,NULL);
 /*!40000 ALTER TABLE `booking` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -226,7 +234,7 @@ CREATE TABLE `distance` (
 
 LOCK TABLES `distance` WRITE;
 /*!40000 ALTER TABLE `distance` DISABLE KEYS */;
-INSERT INTO `distance` VALUES ('ABY','VLD',90),('JFK','SJC',2564),('LAX','DFW',1233),('MCI','LAX',1361),('MIA','LAX',2340),('MSP','SAN',1531),('OAK','SAN',445),('ONT','SFO',364),('ORD','SJC',1825),('PDX','LGB',847),('SAN','JFK',2581),('SEA','DTW',1922),('SEA','MIA',2722),('SEA','MSP',1395),('SFO','CMH',2117),('SFO','MSY',1909),('SJC','JFK',2564),('SJC','SEA',NULL);
+INSERT INTO `distance` VALUES ('ABY','VLD',90),('JFK','SJC',2564),('LAX','DFW',1233),('MCI','LAX',1361),('MIA','LAX',2340),('MSP','SAN',1531),('OAK','SAN',445),('ONT','SFO',364),('ORD','SJC',1825),('PDX','LGB',847),('SAN','JFK',2581),('SEA','DTW',1922),('SEA','MIA',2722),('SEA','MSP',1395),('SEA','SJC',NULL),('SFO','CMH',2117),('SFO','MSY',1909),('SJC','JFK',2564),('SJC','SEA',NULL);
 /*!40000 ALTER TABLE `distance` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -309,7 +317,8 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `insert_airlines_schedule`(
         in n_depart_loc	varchar(10),
         in n_destination	varchar(10),
         in n_plane_id	int(10),
-        in n_price int(10)
+        in n_price int(10),
+        in n_timestamp timestamp
 	)
 begin
 	insert into airline
@@ -322,7 +331,8 @@ begin
         depart_loc,
         destination,
         plane_id,
-        price
+        price,
+        UPDATEAT
 	)
     values
     (
@@ -334,7 +344,8 @@ begin
         n_depart_loc,
         n_destination,
         n_plane_id,
-        n_price
+        n_price,
+        n_timestamp
         );
 end ;;
 DELIMITER ;
@@ -352,4 +363,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-07-19 19:32:28
+-- Dump completed on 2019-07-20 15:43:31
