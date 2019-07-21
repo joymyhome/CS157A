@@ -10,7 +10,7 @@ IN email_in varchar(64),
 IN cc_in bigint(20),
 IN lastName_in varchar(64))
 BEGIN
-	INSERT INTO customer(custom_id, password, phone, email, cc, lastname ) VALUES(custID_in, pass_in, firstName_in, phone_in, email_in, cc_in, lastName_in);
+	INSERT INTO customer(custom_id, password, firstname, phone, email, cc, lastname ) VALUES(custID_in, pass_in, firstName_in, phone_in, email_in, cc_in, lastName_in);
 END //
 DELIMITER ;
 
@@ -24,7 +24,7 @@ IN departDate DATE)
 BEGIN
 	SELECT depart_date, arrival_date, depart_time, arrival_time, depart_loc, destination, price
     FROM airline, airplane
-    WHERE airline.plane_id = airplane.plane_id AND depart_loc = dep AND destination = dest_in AND seats > 0;
+    WHERE airline.plane_id = airplane.plane_id AND depart_loc = departLoc_in AND destination = dest_in AND seats > 0;
 END //
 DELIMITER ;
 
