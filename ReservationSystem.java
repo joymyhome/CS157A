@@ -1,10 +1,13 @@
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
+import java.sql.CallableStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Properties;
 import java.sql.Statement;
 import java.util.Scanner;
+
+import com.mysql.cj.jdbc.result.ResultSetMetaData;
 
 public class ReservationSystem {
 	
@@ -12,7 +15,7 @@ public class ReservationSystem {
 	private final String password = "root";
 	private final String servername = "localhost";
 	private final int portnumber = 3306;
-	private final String dbname = "Airline";
+	private final String dbname = "Airlines";
 	
 	/**
 	 * Get a new database connection
@@ -32,25 +35,6 @@ public class ReservationSystem {
 		
 		return conn;
 	}
-	
-	/**
-	 * Run a SQL command which does not return a recordset:
-	 * CREATE/INSERT/UPDATE/DELETE/DROP/etc.
-	 * 
-	 * @throws SQLException If something goes wrong
-	 */
-	public boolean executeUpdate(Connection conn, String command) throws SQLException {
-	    Statement stmt = null;
-	    try {
-	        stmt = conn.createStatement();
-	        stmt.executeUpdate(command); // This will throw a SQLException if it fails
-	        return true;
-	    } finally {
-	    	
-	    	// This will run whether we throw an exception or not
-	        if (stmt != null) { stmt.close(); }
-	    }
-	}
 
 	public void run() {
 		
@@ -66,81 +50,137 @@ public class ReservationSystem {
 		}
 		
 		boolean done = false;
+		boolean loggedin = false;
 		Scanner sc = new Scanner(System.in);
 		
 		while (!done) {
 			System.out.println("Please enter which action to take: ");
-			System.out.println("1: Create new account");
-			System.out.println("2: Login");
-			System.out.println("3: Quit");
+			System.out.println("1: Quit");
+			System.out.println("2: Create new account");
+			System.out.println("3: Login");
 			
-				if (sc.hasNextInt()) {
-					int choice = sc.nextInt();
+			if (loggedin) {
+				System.out.println("4: Check available flights");
+				System.out.println("5: Reserve a flight");
+			}
+			else {
+				
+			}
+			
+			if (sc.hasNextInt()) {
+				int choice = sc.nextInt();
 					
-					switch (choice) {
-						case 1: 
-							//All these must be checked if valid
-							System.out.println("Please enter your first and last name: ");
-							String name = sc.next();
-							System.out.println("Please enter a password: ");
-							String password = sc.next();
-							System.out.println("Please enter your phone: ");
-							String phone = sc.next();
-							System.out.println("Please enter your email: ");
-							String email = sc.next();
-							System.out.println("Please enter your credit card: ");
-							String cc = sc.next();
+				switch (choice) {
+				
+					case 1: 
+						done = true;
+						sc.close();
+						break;
+						
+					case 2: 
+						//All these must be checked if valid
+						System.out.println("Please enter your first name: ");
+						String fname = sc.next();
+						System.out.println("Please enter your last name: ");
+						String lname = sc.next();
+						System.out.println("Please enter a password: ");
+						String password = sc.next();
+						System.out.println("Please enter your phone: ");
+						String phone = sc.next();
+						System.out.println("Please enter your email: ");
+						String email = sc.next();
+						System.out.println("Please enter your credit card: ");
+						String cc = sc.next();
+						
+						//Inserts the values into Customer
+						try {
+							CallableStatement cstmt = conn.prepareCall("{call addUser(?, ?, ?, ?, ?, ?, ?)}");
+						    
+						    //Fix this to auto increment
+						    cstmt.setInt(1, 1234);
+						    
+						    cstmt.setString(2, password);
+						    cstmt.setString(3, fname);
+						    cstmt.setString(4, phone);
+						    cstmt.setString(5, email);
+						    cstmt.setString(6, cc);
+						    cstmt.setString(7, lname);
+						    
+						    //Before statement can be executed, must query DB to check if name already exists
+						    
+							cstmt.execute();
+							System.out.println("Account successfully created");
+							break;
+					
+					    } catch (SQLException e) {
+							System.out.println("ERROR: Account could not be created");
+							e.printStackTrace();
+							break;
+						}
 							
-							//This creates a Customer table, not needed in app but used to check if working
-							try {
-							    String createString =
-								        "CREATE TABLE Customer ( " +
-								        "CUSTOM_ID INTEGER NOT NULL, " +
-								        "PASSWORD varchar(30) NOT NULL, " +
-								        "NAME varchar(30) NOT NULL, " +
-								        "PHONE varchar(30) NOT NULL, " +
-								        "EMAIL varchar(30) NOT NULL, " +
-								        "CC varchar(30), " +
-								        "PRIMARY KEY (CUSTOM_ID))";
-								this.executeUpdate(conn, createString);
-								System.out.println("Created a table");
-						    } catch (SQLException e) {
-								System.out.println("ERROR: Could not create the table");
-								e.printStackTrace();
-								return;
+					case 3:
+						System.out.println("Please enter your first name: ");
+						String fname2 = sc.next();
+						System.out.println("Please enter your last name: ");
+						String lname2 = sc.next();
+						System.out.println("Please enter a password: ");
+						String password2 = sc.next();
+						
+						//Temporary statement until a callable statement can be used from SQL file
+						Statement stmt;
+						try {
+							stmt = conn.createStatement();
+							ResultSet rs = stmt.executeQuery("SELECT * FROM CUSTOMER WHERE firstname = '" + fname2 + "' AND lastname = '" + lname2 + "' AND password = '" + password2 +"'");
+							
+							if (rs.next()) {
+								System.out.println("Logged in successfully, welcome " + fname2 + " " + lname2 + "!");
+								loggedin = true;
+								break;
 							}
-							
-							//Inserts the values into Customer
-							try {
-							    PreparedStatement pstmt = conn.prepareStatement("INSERT INTO Customer (custom_id, password, name, phone, email, cc) VALUE"
-							    		+ " (?, ?, ?, ?, ?, ?)");
-							    
-							    //Fix this to auto increment
-							    pstmt.setInt(1, 1000);
-							    
-							    pstmt.setString(2, password);
-							    pstmt.setString(3, name);
-							    pstmt.setString(4, phone);
-							    pstmt.setString(5, email);
-							    pstmt.setString(6, cc);
-								pstmt.executeUpdate();
-								System.out.println("Inserted into Customer");
-						    } catch (SQLException e) {
-								System.out.println("ERROR: Could not insert into Customer");
-								e.printStackTrace();
-								return;
+							else {
+								System.out.println("Incorrect login credentials");
+								break;
 							}
+						} catch (SQLException e) {
+							System.out.println("ERROR: Could not login");
+							e.printStackTrace();
+							break;
+						}
+						
+					case 4:
+						try {
+							System.out.println("Please enter your destination: ");
+							String dest = sc.next();
+							System.out.println("Please enter your departure location: ");
+							String depart = sc.next();
+							System.out.println("Please enter your departure date: ");
+							String date = sc.next();
 							
-							System.out.println("Account created.");
+							CallableStatement cstmt = conn.prepareCall("{call searchAvailFlights(?, ?, ?)}");
+						    
+						    cstmt.setString(1, depart);
+						    cstmt.setString(2, dest);
+						    cstmt.setString(3, date);
+							ResultSet rs = cstmt.executeQuery();
+							ResultSetMetaData md = (ResultSetMetaData) rs.getMetaData();
+							int colNum = md.getColumnCount();
 							
-						case 2:
-							
-							//Implement
-							sc.next();
-							
-						case 3: 
-							done = true;
-							sc.close();
+							while (rs.next()) {
+								for (int i = 1; i <= colNum; i++) {
+									if (i > 1) System.out.print(", ");
+									String val = rs.getString(i);
+									System.out.print(md.getColumnName(i) + ": " + val);
+								}
+								System.out.println("");
+							}
+
+							break;
+					
+					    } catch (SQLException e) {
+							System.out.println("ERROR: Available flights could not be viewed");
+							e.printStackTrace();
+							break;
+						}
 					}
 				}
 				else {
