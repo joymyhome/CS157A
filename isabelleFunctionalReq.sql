@@ -43,9 +43,9 @@ CREATE PROCEDURE viewReservation (
 IN custID_in int(11),
 IN pass_in varchar(64))
 BEGIN 
-	SELECT ticket_id, flight_id, 
-    FROM booking, customer USING (custom_id)
-    WHERE custID_in = booking.custom_id;
+	SELECT ticket_id, flight_id
+    FROM booking, customer
+    WHERE custID_in = booking.custom_id AND booking.custom_id = customer.custom_id;
 END //
 DELIMITER ;
 
