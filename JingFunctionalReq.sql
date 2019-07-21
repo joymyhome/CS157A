@@ -245,3 +245,38 @@ delimiter ;
 
 call update_customer(1005, "Hillary", "Hanson", "q975633123123", "hillaryhanson123@gmail.com",
 "6479871092", 9145835732978470);
+
+
+#triggers 
+# For users who books a flight that costs more than 1000 dollars, give a 50 dollar discount
+delimiter //
+CREATE  TRIGGER discount_for_1000_above_ticket BEFORE INSERT ON booking
+ FOR EACH ROW 
+ begin
+	if new.payment > 1000 then
+		set new.payment = new.payment-50;
+	end if;
+end//
+delimiter ;
+
+
+# triggers
+# Check_valid_airline_insertion  
+	# 	insert into distance table (depart_loc, destination) before inserting into airlines if depart_loc and destination has never been recorded in distance table. 
+	#	Check if the arrival date is smaller than depart date, if so, set arrival date to be null which violates not null constraints-abort
+	#	If depart_date and arrival_date are the same date, check if arrival time is smaller than depart_time. If so, set arrival time to be null which violates not null constraints-abort. 
+delimiter //
+CREATE TRIGGER check_valid_airline_insertion BEFORE INSERT ON airline 
+FOR EACH ROW 
+begin
+	if new.arrival_date < new.depart_date then
+		set new.arrival_date=null;
+	end if;
+    if new.arrival_date = new.depart_date and new.arrival_time < new.depart_time then
+		set new.arrival_time=null;
+	end if;
+	if (new.depart_loc, new.destination) not in (select location1, location2 from distance) then
+		insert into distance values(new.depart_loc, new.destination, null);
+	end if;
+end//
+delimiter ;
