@@ -5,17 +5,41 @@
  */
 package airlinereservationsystem;
 
+import com.mysql.cj.jdbc.CallableStatement;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.Statement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Vector;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author jing
  */
 public class CustomerPanel extends javax.swing.JFrame {
 
+    private String loginuser;
+    private int custom_id;
     /**
      * Creates new form CusomterControl
      */
     public CustomerPanel() {
         initComponents();
+    }
+    public CustomerPanel(String loginuser, int id){
+        initComponents();
+        this.loginuser = loginuser;
+        User.setText(this.loginuser);
+        this.custom_id=id;
+        
+        
     }
 
     /**
@@ -29,6 +53,31 @@ public class CustomerPanel extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         User = new javax.swing.JLabel();
+        jbookflight = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jFlightTable = new javax.swing.JTable();
+        jLabel2 = new javax.swing.JLabel();
+        jbookingfield = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
+        jtop10 = new javax.swing.JButton();
+        jUserBooking = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jUserBookingTable = new javax.swing.JTable();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jFrom = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        jTo = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        jSearch = new javax.swing.JButton();
+        jDate = new com.toedter.calendar.JDateChooser();
+        jLabel7 = new javax.swing.JLabel();
+        jbookingfield1 = new javax.swing.JTextField();
+        jbookflight1 = new javax.swing.JButton();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu2 = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem6 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -36,30 +85,487 @@ public class CustomerPanel extends javax.swing.JFrame {
 
         User.setText("User");
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(180, 180, 180)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(42, 42, 42)
-                .addComponent(User)
-                .addContainerGap(265, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(33, 33, 33)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(User))
-                .addContainerGap(347, Short.MAX_VALUE))
-        );
+        jbookflight.setText("Book flight");
+        jbookflight.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbookflightActionPerformed(evt);
+            }
+        });
 
-        pack();
+        jFlightTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        )
+    );
+    jFlightTable.getTableHeader().setReorderingAllowed(false);
+    jScrollPane1.setViewportView(jFlightTable);
+
+    jLabel2.setText("Flight No");
+
+    jButton1.setText("View all flights");
+    jButton1.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            jButton1ActionPerformed(evt);
+        }
+    });
+
+    jtop10.setText("Top 10 cheapest flights");
+    jtop10.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            jtop10ActionPerformed(evt);
+        }
+    });
+
+    jUserBooking.setText("View your booking");
+    jUserBooking.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            jUserBookingActionPerformed(evt);
+        }
+    });
+
+    jUserBookingTable.setModel(new javax.swing.table.DefaultTableModel(
+        new Object [][] {
+            {},
+            {},
+            {},
+            {}
+        },
+        new String [] {
+
+        }
+    ));
+    jScrollPane2.setViewportView(jUserBookingTable);
+
+    jLabel3.setText("Search a flight");
+
+    jLabel4.setText("From");
+
+    jLabel5.setText("To");
+
+    jTo.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            jToActionPerformed(evt);
+        }
+    });
+
+    jLabel6.setText("Departure Date");
+
+    jSearch.setText("Search");
+    jSearch.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            jSearchActionPerformed(evt);
+        }
+    });
+
+    jDate.setDateFormatString("yyyy-MM-dd");
+
+    jLabel7.setText("Flight No");
+
+    jbookflight1.setText("Cancel flight");
+    jbookflight1.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            jbookflight1ActionPerformed(evt);
+        }
+    });
+
+    jMenu2.setText("Profile");
+
+    jMenuItem2.setText("Update your profile");
+    jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            jMenuItem2ActionPerformed(evt);
+        }
+    });
+    jMenu2.add(jMenuItem2);
+
+    jMenuItem6.setText("Log out");
+    jMenu2.add(jMenuItem6);
+
+    jMenuBar1.add(jMenu2);
+
+    setJMenuBar(jMenuBar1);
+
+    javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+    getContentPane().setLayout(layout);
+    layout.setHorizontalGroup(
+        layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addGroup(layout.createSequentialGroup()
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createSequentialGroup()
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(jLabel3))
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(23, 23, 23)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(30, 30, 30)
+                            .addComponent(User))
+                        .addComponent(jtop10, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel4)
+                                .addComponent(jLabel5))
+                            .addGap(67, 67, 67)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jFrom, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jTo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(6, 6, 6)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel6)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(6, 6, 6)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(jbookflight, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                                        .addComponent(jbookingfield, javax.swing.GroupLayout.DEFAULT_SIZE, 97, Short.MAX_VALUE)))))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(jUserBooking)
+                            .addGap(18, 18, 18)))
+                    .addGap(18, 18, 18))
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jLabel7)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jbookingfield1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jbookflight1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGap(38, 38, 38)))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 988, Short.MAX_VALUE)
+                .addComponent(jScrollPane1))
+            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+    );
+    layout.setVerticalGroup(
+        layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(User))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jButton1)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(jtop10)
+                    .addGap(18, 18, 18)
+                    .addComponent(jLabel3)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel4)
+                        .addComponent(jFrom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel5)
+                        .addComponent(jTo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel6)
+                        .addComponent(jDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGap(18, 18, 18)
+                    .addComponent(jSearch)
+                    .addGap(9, 9, 9)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel2)
+                        .addComponent(jbookingfield, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(jbookflight)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(jUserBooking)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jbookingfield1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel7))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(jbookflight1)
+                    .addGap(0, 10, Short.MAX_VALUE))
+                .addGroup(layout.createSequentialGroup()
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)))
+            .addContainerGap())
+    );
+
+    pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jbookflightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbookflightActionPerformed
+        // TODO add your handling code here:
+        if (jbookingfield.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Please enter the Flight No",
+                    "Empty Flight No", JOptionPane.INFORMATION_MESSAGE);
+        }
+        else{
+            int flight_no = Integer.parseInt(jbookingfield.getText());
+            Getconnection con = new Getconnection();
+        
+            try{
+                Connection conn = con.getConnection();
+                CallableStatement cs = (CallableStatement) conn.prepareCall("Call booking_flight(?,?)");
+                cs.setInt(1, custom_id);
+                cs.setInt(2, flight_no);
+                cs.execute();
+                JOptionPane.showMessageDialog(null, "You've booked a ticket succesfully",
+                        "Error", JOptionPane.INFORMATION_MESSAGE);
+            
+            }
+            catch(Exception e){
+                System.out.println("ERROR: Could not connect to Airline Reservation System");
+                e.printStackTrace();
+                return;
+            }
+        }
+        
+        
+        
+    }//GEN-LAST:event_jbookflightActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        viewAllFlights();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jtop10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtop10ActionPerformed
+        // Show top 10 flights
+        showCheapestFlights(10);
+    }//GEN-LAST:event_jtop10ActionPerformed
+
+    private void jUserBookingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jUserBookingActionPerformed
+        // Show all the booking info
+        userBooking();
+        
+    }//GEN-LAST:event_jUserBookingActionPerformed
+
+    private void jToActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jToActionPerformed
+
+    private void jSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jSearchActionPerformed
+        // Search for a flight
+        String from = jFrom.getText();
+        String to = jTo.getText();
+        Date date = jDate.getDate();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        String year = Integer.toString(calendar.get(Calendar.YEAR));
+        String month = Integer.toString(calendar.get(Calendar.MONTH)+1);
+        String day = Integer.toString(calendar.get(Calendar.DAY_OF_MONTH)+1);
+        
+        String ddate = year+"-"+month+"-"+day;
+        Getconnection con = new Getconnection();
+        
+        Vector<String> col = new Vector<String>();
+        Vector<Vector> dat = new Vector<Vector>();
+        try{
+            Connection conn = con.getConnection();
+            
+            String selectSql = "select * from airline where depart_loc=? and "
+                    + "destination=? and depart_date=?";
+            PreparedStatement pstmt = conn.prepareStatement(selectSql);
+            pstmt.setString(1, from);
+            pstmt.setString(2, to);
+            pstmt.setDate(3, java.sql.Date.valueOf(ddate));
+            ResultSet rs = pstmt.executeQuery();
+            if(rs.next()==false){
+                JOptionPane.showMessageDialog(null, "No flight is scheduled!",
+                        "Sorry", JOptionPane.INFORMATION_MESSAGE);
+            }
+            else{
+                rs.beforeFirst();
+                col.add("Flight ID");
+                col.add("From");
+                col.add("To");
+                col.add("Departure Date");
+                col.add("Departure Time");
+                col.add("Arrival Date");
+                col.add("Arrival Time");
+                col.add("Price");
+                dat.clear();
+                DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                DateFormat timeFormat = new SimpleDateFormat("hh:mm:ss");
+                while(rs.next()){
+                    Vector<String> v = new Vector<String>();
+                    v.add(Integer.toString(rs.getInt("flight_id")));
+                    v.add(rs.getString("depart_loc"));
+                    v.add(rs.getString("destination"));
+                    v.add(dateFormat.format(rs.getDate("depart_date")));
+                    v.add(timeFormat.format(rs.getTime("depart_time")));
+                    v.add(dateFormat.format(rs.getDate("arrival_date")));
+                    v.add(timeFormat.format(rs.getTime("arrival_time")));
+                    v.add(Integer.toString(rs.getInt("price")));
+
+                     dat.add(v);
+                }
+            }
+        }
+        catch(Exception e){
+            System.out.println("Failed searching");
+             e.printStackTrace();
+        }
+        jFlightTable.setModel(new DefaultTableModel(dat, col){
+             @Override
+             public boolean isCellEditable(int row, int column) {
+                return false;
+             }
+         });
+        
+    }//GEN-LAST:event_jSearchActionPerformed
+
+    private void jbookflight1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbookflight1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jbookflight1ActionPerformed
+    
+    private void viewAllFlights(){
+        /**
+         * Show all flights
+         */
+         Getconnection con = new Getconnection();
+         
+         Vector<String> col = new Vector<String>();
+         Vector<Vector> dat = new Vector<Vector>();
+         try{
+             Connection conn = con.getConnection();
+             col.add("Flight ID");
+             col.add("From");
+             col.add("To");
+             col.add("Departure Date");
+             col.add("Departure Time");
+             col.add("Arrival Date");
+             col.add("Arrival Time");
+             col.add("Price");
+             String selectQuery = "Select * from airline";
+             ResultSet rs = conn.createStatement().executeQuery(selectQuery);
+             dat.clear();
+             DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+             DateFormat timeFormat = new SimpleDateFormat("hh:mm:ss");
+             while(rs.next()){
+                 Vector<String> v = new Vector<String>();
+                 v.add(Integer.toString(rs.getInt("flight_id")));
+                 v.add(rs.getString("depart_loc"));
+                 v.add(rs.getString("destination"));
+                 v.add(dateFormat.format(rs.getDate("depart_date")));
+                 v.add(timeFormat.format(rs.getTime("depart_time")));
+                 v.add(dateFormat.format(rs.getDate("arrival_date")));
+                 v.add(timeFormat.format(rs.getTime("arrival_time")));
+                 v.add(Integer.toString(rs.getInt("price")));
+             
+                 dat.add(v);
+             }
+             
+         }
+         catch(Exception e){
+             System.out.println("Failed populating data");
+             e.printStackTrace();
+         }
+         jFlightTable.setModel(new DefaultTableModel(dat, col){
+             @Override
+             public boolean isCellEditable(int row, int column) {
+                return false;
+             }
+         });
+    }
+    
+    private void showCheapestFlights(int topx){
+        Getconnection con = new Getconnection();
+         
+         Vector<String> col = new Vector<String>();
+         Vector<Vector> dat = new Vector<Vector>();
+         try{
+             Connection conn = con.getConnection();
+             col.add("Flight ID");
+             col.add("From");
+             col.add("To");
+             col.add("Departure Date");
+             col.add("Departure Time");
+             col.add("Arrival Date");
+             col.add("Arrival Time");
+             col.add("Price");
+             String selectQuery = "Select * from airline order by price asc limit " + topx;
+             ResultSet rs = conn.createStatement().executeQuery(selectQuery);
+             dat.clear();
+             DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+             DateFormat timeFormat = new SimpleDateFormat("hh:mm:ss");
+             while(rs.next()){
+                 Vector<String> v = new Vector<String>();
+                 v.add(Integer.toString(rs.getInt("flight_id")));
+                 v.add(rs.getString("depart_loc"));
+                 v.add(rs.getString("destination"));
+                 v.add(dateFormat.format(rs.getDate("depart_date")));
+                 v.add(timeFormat.format(rs.getTime("depart_time")));
+                 v.add(dateFormat.format(rs.getDate("arrival_date")));
+                 v.add(timeFormat.format(rs.getTime("arrival_time")));
+                 v.add(Integer.toString(rs.getInt("price")));
+             
+                 dat.add(v);
+             }
+             
+         }
+         catch(Exception e){
+             System.out.println("Failed populating data");
+             e.printStackTrace();
+         }
+         jFlightTable.setModel(new DefaultTableModel(dat, col){
+             @Override
+             public boolean isCellEditable(int row, int column) {
+                return false;
+             }
+         });
+    }
+    
+    private void userBooking(){
+        Getconnection con = new Getconnection();
+         
+         Vector<String> col = new Vector<String>();
+         Vector<Vector> dat = new Vector<Vector>();
+         try{
+             Connection conn = con.getConnection();
+             col.add("Ticket ID");
+             col.add("Flight ID");
+             col.add("Payment");
+             String selectQuery = "Select * from booking where custom_id ="+custom_id;
+             ResultSet rs = conn.createStatement().executeQuery(selectQuery);
+             dat.clear();
+             while(rs.next()){
+                 Vector<String> v = new Vector<String>();
+                 v.add(Integer.toString(rs.getInt("ticket_id")));
+                 v.add(Integer.toString(rs.getInt("flight_id")));
+                 v.add(Integer.toString(rs.getInt("payment")));
+                 dat.add(v);
+             }
+             
+         }
+         catch(Exception e){
+             System.out.println("Failed populating data");
+             e.printStackTrace();
+         }
+         
+         jUserBookingTable.setModel(new DefaultTableModel(dat, col){
+             @Override
+             public boolean isCellEditable(int row, int column) {
+                return false;
+             }
+         });
+
+         
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -86,13 +592,6 @@ public class CustomerPanel extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(CustomerPanel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -105,6 +604,31 @@ public class CustomerPanel extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel User;
+    private javax.swing.JButton jButton1;
+    private com.toedter.calendar.JDateChooser jDate;
+    private javax.swing.JTable jFlightTable;
+    private javax.swing.JTextField jFrom;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JButton jSearch;
+    private javax.swing.JTextField jTo;
+    private javax.swing.JButton jUserBooking;
+    private javax.swing.JTable jUserBookingTable;
+    private javax.swing.JButton jbookflight;
+    private javax.swing.JButton jbookflight1;
+    private javax.swing.JTextField jbookingfield;
+    private javax.swing.JTextField jbookingfield1;
+    private javax.swing.JButton jtop10;
     // End of variables declaration//GEN-END:variables
 }
