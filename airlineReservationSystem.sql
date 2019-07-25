@@ -149,7 +149,7 @@ CREATE TABLE `booking` (
   KEY `custom_id_idx` (`custom_id`),
   CONSTRAINT `custom_id` FOREIGN KEY (`custom_id`) REFERENCES `customer` (`custom_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `flight_id` FOREIGN KEY (`flight_id`) REFERENCES `airline` (`flight_id`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -189,15 +189,17 @@ DROP TABLE IF EXISTS `customer`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `customer` (
-  `custom_id` int(11) NOT NULL,
+  `custom_id` int(11) NOT NULL AUTO_INCREMENT,
   `password` varchar(64) NOT NULL,
   `firstname` varchar(64) NOT NULL,
   `phone` char(10) NOT NULL,
   `email` varchar(64) NOT NULL,
   `cc` bigint(20) NOT NULL,
   `lastname` varchar(64) NOT NULL,
-  PRIMARY KEY (`custom_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  PRIMARY KEY (`custom_id`),
+  UNIQUE KEY `phone_UNIQUE` (`phone`),
+  UNIQUE KEY `email_UNIQUE` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=1007 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -540,4 +542,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-07-20 20:56:38
+-- Dump completed on 2019-07-24 23:35:19
