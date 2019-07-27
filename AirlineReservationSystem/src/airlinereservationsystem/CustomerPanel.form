@@ -21,6 +21,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Log out"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem6ActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
@@ -110,8 +113,8 @@
                       <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jbookingfield1" alignment="1" min="-2" pref="97" max="-2" attributes="0"/>
-                          <Component id="jbookflight1" alignment="1" min="-2" pref="108" max="-2" attributes="0"/>
+                          <Component id="jCancel" alignment="1" min="-2" pref="97" max="-2" attributes="0"/>
+                          <Component id="jCancelFlight" alignment="1" min="-2" pref="108" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
                   </Group>
@@ -168,11 +171,11 @@
                       <Component id="jUserBooking" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jbookingfield1" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
+                          <Component id="jCancel" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
                           <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="jbookflight1" min="-2" max="-2" attributes="0"/>
+                      <Component id="jCancelFlight" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="0" pref="10" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
@@ -325,17 +328,17 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel7">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Flight No"/>
+        <Property name="text" type="java.lang.String" value="Ticket No"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="jbookingfield1">
+    <Component class="javax.swing.JTextField" name="jCancel">
     </Component>
-    <Component class="javax.swing.JButton" name="jbookflight1">
+    <Component class="javax.swing.JButton" name="jCancelFlight">
       <Properties>
         <Property name="text" type="java.lang.String" value="Cancel flight"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbookflight1ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jCancelFlightActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

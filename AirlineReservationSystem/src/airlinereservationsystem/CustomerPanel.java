@@ -72,8 +72,8 @@ public class CustomerPanel extends javax.swing.JFrame {
         jSearch = new javax.swing.JButton();
         jDate = new com.toedter.calendar.JDateChooser();
         jLabel7 = new javax.swing.JLabel();
-        jbookingfield1 = new javax.swing.JTextField();
-        jbookflight1 = new javax.swing.JButton();
+        jCancel = new javax.swing.JTextField();
+        jCancelFlight = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
@@ -163,12 +163,12 @@ public class CustomerPanel extends javax.swing.JFrame {
 
     jDate.setDateFormatString("yyyy-MM-dd");
 
-    jLabel7.setText("Flight No");
+    jLabel7.setText("Ticket No");
 
-    jbookflight1.setText("Cancel flight");
-    jbookflight1.addActionListener(new java.awt.event.ActionListener() {
+    jCancelFlight.setText("Cancel flight");
+    jCancelFlight.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
-            jbookflight1ActionPerformed(evt);
+            jCancelFlightActionPerformed(evt);
         }
     });
 
@@ -183,6 +183,11 @@ public class CustomerPanel extends javax.swing.JFrame {
     jMenu2.add(jMenuItem2);
 
     jMenuItem6.setText("Log out");
+    jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            jMenuItem6ActionPerformed(evt);
+        }
+    });
     jMenu2.add(jMenuItem6);
 
     jMenuBar1.add(jMenu2);
@@ -240,8 +245,8 @@ public class CustomerPanel extends javax.swing.JFrame {
                     .addComponent(jLabel7)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jbookingfield1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jbookflight1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jCancel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jCancelFlight, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGap(38, 38, 38)))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 988, Short.MAX_VALUE)
@@ -287,10 +292,10 @@ public class CustomerPanel extends javax.swing.JFrame {
                     .addComponent(jUserBooking)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jbookingfield1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel7))
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                    .addComponent(jbookflight1)
+                    .addComponent(jCancelFlight)
                     .addGap(0, 10, Short.MAX_VALUE))
                 .addGroup(layout.createSequentialGroup()
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
@@ -428,9 +433,42 @@ public class CustomerPanel extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jSearchActionPerformed
 
-    private void jbookflight1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbookflight1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jbookflight1ActionPerformed
+    private void jCancelFlightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCancelFlightActionPerformed
+        // Cancel a flight
+        int cancelTicketId = Integer.parseInt(jCancel.getText());
+        Getconnection con = new Getconnection();
+        try{
+            Connection conn = con.getConnection();
+            String deleteSql = "delete from booking where ticket_id=?";
+            PreparedStatement pstmt = conn.prepareStatement(deleteSql);
+            pstmt.setInt(1, cancelTicketId);
+            int rs = pstmt.executeUpdate();
+            if(rs == 1){
+                userBooking();
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "It has been deleted",
+                        "Alert", JOptionPane.INFORMATION_MESSAGE);
+            }
+        }
+        catch(Exception e){
+            System.out.println("ERROR: Could not connect to Airline Reservation System");
+            e.printStackTrace();
+            return;
+        }
+        
+        
+        
+    }//GEN-LAST:event_jCancelFlightActionPerformed
+
+    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+        // Goes back to MainScreen
+        dispose();
+        MainScreen main = new MainScreen();
+        main.setLocationRelativeTo(null);
+        main.setVisible(true);
+       
+    }//GEN-LAST:event_jMenuItem6ActionPerformed
     
     private void viewAllFlights(){
         /**
@@ -605,6 +643,8 @@ public class CustomerPanel extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel User;
     private javax.swing.JButton jButton1;
+    private javax.swing.JTextField jCancel;
+    private javax.swing.JButton jCancelFlight;
     private com.toedter.calendar.JDateChooser jDate;
     private javax.swing.JTable jFlightTable;
     private javax.swing.JTextField jFrom;
@@ -626,9 +666,7 @@ public class CustomerPanel extends javax.swing.JFrame {
     private javax.swing.JButton jUserBooking;
     private javax.swing.JTable jUserBookingTable;
     private javax.swing.JButton jbookflight;
-    private javax.swing.JButton jbookflight1;
     private javax.swing.JTextField jbookingfield;
-    private javax.swing.JTextField jbookingfield1;
     private javax.swing.JButton jtop10;
     // End of variables declaration//GEN-END:variables
 }
