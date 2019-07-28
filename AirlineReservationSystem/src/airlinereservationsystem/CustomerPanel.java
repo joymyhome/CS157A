@@ -547,8 +547,8 @@ public class CustomerPanel extends javax.swing.JFrame {
                  v.add(rs.getString("depart_loc"));
                  v.add(rs.getString("destination"));
                  v.add(dateFormat.format(rs.getDate("depart_date")));
-                 v.add(timeFormat.format(rs.getTime("depart_time")));
                  v.add(dateFormat.format(rs.getDate("arrival_date")));
+                 v.add(timeFormat.format(rs.getTime("depart_time")));
                  v.add(timeFormat.format(rs.getTime("arrival_time")));
                  v.add(Integer.toString(rs.getInt("price")));
              
