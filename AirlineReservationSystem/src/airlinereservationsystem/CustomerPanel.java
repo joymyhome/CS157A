@@ -371,7 +371,7 @@ public class CustomerPanel extends javax.swing.JFrame {
         calendar.setTime(date);
         String year = Integer.toString(calendar.get(Calendar.YEAR));
         String month = Integer.toString(calendar.get(Calendar.MONTH)+1);
-        String day = Integer.toString(calendar.get(Calendar.DAY_OF_MONTH)+1);
+        String day = Integer.toString(calendar.get(Calendar.DAY_OF_MONTH));
         
         String ddate = year+"-"+month+"-"+day;
         Getconnection con = new Getconnection();
@@ -381,13 +381,11 @@ public class CustomerPanel extends javax.swing.JFrame {
         try{
             Connection conn = con.getConnection();
             
-            String selectSql = "select * from airline where depart_loc=? and "
-                    + "destination=? and depart_date=?";
-            PreparedStatement pstmt = conn.prepareStatement(selectSql);
-            pstmt.setString(1, from);
-            pstmt.setString(2, to);
-            pstmt.setDate(3, java.sql.Date.valueOf(ddate));
-            ResultSet rs = pstmt.executeQuery();
+           CallableStatement cs = (CallableStatement) conn.prepareCall("Call search_a_flight(?, ? , ?)");
+            cs.setString(1, from);
+            cs.setString(2, to);
+            cs.setDate(3, java.sql.Date.valueOf(ddate));
+            ResultSet rs = cs.executeQuery();
             if(rs.next()==false){
                 JOptionPane.showMessageDialog(null, "No flight is scheduled!",
                         "Sorry", JOptionPane.INFORMATION_MESSAGE);
@@ -398,21 +396,21 @@ public class CustomerPanel extends javax.swing.JFrame {
                 col.add("From");
                 col.add("To");
                 col.add("Departure Date");
-                col.add("Departure Time");
                 col.add("Arrival Date");
+                col.add("Departure Time");
                 col.add("Arrival Time");
                 col.add("Price");
                 dat.clear();
                 DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                DateFormat timeFormat = new SimpleDateFormat("hh:mm:ss");
+                DateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
                 while(rs.next()){
                     Vector<String> v = new Vector<String>();
                     v.add(Integer.toString(rs.getInt("flight_id")));
                     v.add(rs.getString("depart_loc"));
                     v.add(rs.getString("destination"));
                     v.add(dateFormat.format(rs.getDate("depart_date")));
-                    v.add(timeFormat.format(rs.getTime("depart_time")));
                     v.add(dateFormat.format(rs.getDate("arrival_date")));
+                    v.add(timeFormat.format(rs.getTime("depart_time")));
                     v.add(timeFormat.format(rs.getTime("arrival_time")));
                     v.add(Integer.toString(rs.getInt("price")));
 
@@ -484,8 +482,8 @@ public class CustomerPanel extends javax.swing.JFrame {
              col.add("From");
              col.add("To");
              col.add("Departure Date");
-             col.add("Departure Time");
              col.add("Arrival Date");
+             col.add("Departure Time");
              col.add("Arrival Time");
              col.add("Price");
              String selectQuery = "Select flight_id, depart_date, arrival_date, depart_time, arrival_time, depart_loc, destination, plane_id, price "
@@ -493,15 +491,15 @@ public class CustomerPanel extends javax.swing.JFrame {
              ResultSet rs = conn.createStatement().executeQuery(selectQuery);
              dat.clear();
              DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-             DateFormat timeFormat = new SimpleDateFormat("hh:mm:ss");
+             DateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
              while(rs.next()){
                  Vector<String> v = new Vector<String>();
                  v.add(Integer.toString(rs.getInt("flight_id")));
                  v.add(rs.getString("depart_loc"));
                  v.add(rs.getString("destination"));
                  v.add(dateFormat.format(rs.getDate("depart_date")));
-                 v.add(timeFormat.format(rs.getTime("depart_time")));
                  v.add(dateFormat.format(rs.getDate("arrival_date")));
+                 v.add(timeFormat.format(rs.getTime("depart_time")));
                  v.add(timeFormat.format(rs.getTime("arrival_time")));
                  v.add(Integer.toString(rs.getInt("price")));
              
@@ -542,7 +540,7 @@ public class CustomerPanel extends javax.swing.JFrame {
 //             ResultSet rs = conn.createStatement().executeQuery(selectQuery);
              dat.clear();
              DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-             DateFormat timeFormat = new SimpleDateFormat("hh:mm:ss");
+             DateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
              while(rs.next()){
                  Vector<String> v = new Vector<String>();
                  v.add(Integer.toString(rs.getInt("flight_id")));

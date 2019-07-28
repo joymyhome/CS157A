@@ -36,8 +36,10 @@ public class Getconnection {
 
 
         conn = DriverManager.getConnection("jdbc:mysql://"
-                        + this.servername + ":" + this.portnumber + "/" + this.dbname + "?serverTimezone=UTC",
+                        + this.servername + ":" + this.portnumber + "/" + this.dbname + "?serverTimezone=PST",
                         connectionProps);
+//                            + this.servername + ":" + this.portnumber + "/" + this.dbname,
+//                            connectionProps);
 
         return conn;
     }
