@@ -19,10 +19,10 @@ import javax.swing.JOptionPane;
 public class Getconnection {
     
     private final String username = "root";
-    private final String password = "890123zj";
+    private final String password = "";
     private final String servername = "localhost";
     private final int portnumber = 3306;
-    private final String dbname = "Airlines";
+    private final String dbname = "AIRLINES";
     
     
     /**
