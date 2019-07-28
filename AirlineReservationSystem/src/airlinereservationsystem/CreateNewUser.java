@@ -201,6 +201,7 @@ public class CreateNewUser extends javax.swing.JFrame {
         // TODO add your handling code here:
         String firstname = jfirstname.getText();
         String lastname = jlastname.getText();
+        String name = firstname+" "+lastname;
         String password = new String(jpassword.getPassword());
         String phone = jphone.getText();
         String email = jemail.getText();
@@ -219,15 +220,14 @@ public class CreateNewUser extends javax.swing.JFrame {
             }
             else{
                 String insertSql = "INSERT INTO Customer "
-                    + "(firstname, lastname, password, phone, email, cc) VALUE"
-                    + " (?,?, ?, ?, ?, ?)";
+                    + "(name, password, phone, email, cc) VALUE"
+                    + " (?, ?, ?, ?, ?)";
                 pstmt = conn.prepareStatement(insertSql);
-                pstmt.setString(1, firstname);
-                pstmt.setString(2, lastname);
-                pstmt.setString(3, password);
-                pstmt.setString(4, phone);
-                pstmt.setString(5, email);
-                pstmt.setString(6, cc);
+                pstmt.setString(1, name);
+                pstmt.setString(2, password);
+                pstmt.setString(3, phone);
+                pstmt.setString(4, email);
+                pstmt.setString(5, cc);
             
                 if(pstmt.executeUpdate() == 1){
                     infoMessage("You've succesfully registered", "Congratulations!");
