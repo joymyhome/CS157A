@@ -218,7 +218,6 @@ DROP TABLE IF EXISTS `distance`;
 CREATE TABLE `distance` (
   `location1` varchar(10) NOT NULL,
   `location2` varchar(10) NOT NULL,
-  `distance` int(10) DEFAULT NULL,
   `price` int(10) DEFAULT NULL,
   PRIMARY KEY (`location1`,`location2`),
   KEY `location2_idx` (`location2`),
@@ -233,7 +232,7 @@ CREATE TABLE `distance` (
 
 LOCK TABLES `distance` WRITE;
 /*!40000 ALTER TABLE `distance` DISABLE KEYS */;
-INSERT INTO `distance` VALUES ('ABY','VLD',90,80),('JFK','SJC',2564,900),('LAX','DFW',1233,500),('MCI','LAX',1361,450),('MIA','LAX',2340,880),('MSP','SAN',1531,700),('OAK','SAN',445,300),('ONT','SFO',364,250),('ORD','SJC',1825,780),('PDX','LGB',847,400),('SAN','JFK',2581,920),('SEA','DTW',1922,800),('SEA','MIA',2722,1000),('SEA','MSP',1395,650),('SEA','SJC',640,300),('SFO','CMH',2117,830),('SFO','MSY',1909,740),('SJC','JFK',2564,980),('SJC','SEA',NULL,300),('SJC','VLD',NULL,600);
+INSERT INTO `distance` VALUES ('ABY','VLD',80),('JFK','SJC',900),('LAX','DFW',500),('MCI','LAX',450),('MIA','LAX',880),('MSP','SAN',700),('OAK','SAN',300),('ONT','SFO',250),('ORD','SJC',780),('PDX','LGB',400),('SAN','JFK',920),('SEA','DTW',800),('SEA','MIA',1000),('SEA','MSP',650),('SEA','SJC',300),('SFO','CMH',830),('SFO','MSY',740),('SJC','JFK',980),('SJC','SEA',300),('SJC','VLD',600);
 /*!40000 ALTER TABLE `distance` ENABLE KEYS */;
 UNLOCK TABLES;
 
