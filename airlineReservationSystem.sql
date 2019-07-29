@@ -1,6 +1,6 @@
 CREATE DATABASE  IF NOT EXISTS `AIRLINES` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */;
 USE `AIRLINES`;
--- MySQL dump 10.13  Distrib 8.0.16, for macos10.14 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.17, for macos10.14 (x86_64)
 --
 -- Host: localhost    Database: AIRLINES
 -- ------------------------------------------------------
@@ -9,7 +9,7 @@ USE `AIRLINES`;
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
- SET NAMES utf8 ;
+/*!50503 SET NAMES utf8 */;
 /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
 /*!40103 SET TIME_ZONE='+00:00' */;
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
@@ -18,12 +18,36 @@ USE `AIRLINES`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `admin`
+--
+
+DROP TABLE IF EXISTS `admin`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `admin` (
+  `admin_id` int(11) NOT NULL AUTO_INCREMENT,
+  `password` varchar(64) NOT NULL,
+  PRIMARY KEY (`admin_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2001 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `admin`
+--
+
+LOCK TABLES `admin` WRITE;
+/*!40000 ALTER TABLE `admin` DISABLE KEYS */;
+INSERT INTO `admin` VALUES (2000,'admin123');
+/*!40000 ALTER TABLE `admin` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `airline`
 --
 
 DROP TABLE IF EXISTS `airline`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `airline` (
   `flight_id` int(10) NOT NULL AUTO_INCREMENT,
   `depart_date` date NOT NULL,
@@ -51,7 +75,7 @@ CREATE TABLE `airline` (
 
 LOCK TABLES `airline` WRITE;
 /*!40000 ALTER TABLE `airline` DISABLE KEYS */;
-INSERT INTO `airline` VALUES (1001,'2019-07-14','2019-07-14','10:52:00','18:30:00','SFO','CMH',1,'2019-07-27 23:42:39'),(1002,'2019-07-15','2019-07-15','06:15:00','11:21:00','LAX','DFW',2,NULL),(1003,'2019-11-20','2019-11-21','22:47:00','00:31:00','MSP','SAN',3,NULL),(1004,'2019-12-20','2019-12-21','21:40:00','05:00:00','SEA','DTW',4,NULL),(1005,'2019-07-18','2019-07-18','15:34:00','22:47:00','MIA','LAX',5,NULL),(1006,'2019-07-17','2019-07-17','06:00:00','08:18:00','PDX','LGB',6,NULL),(1007,'2019-10-28','2019-10-29','20:24:00','05:17:00','SEA','MIA',7,NULL),(1008,'2019-07-16','2019-07-17','22:54:00','07:33:00','SJC','JFK',8,NULL),(1009,'2019-07-21','2019-07-21','10:05:00','12:50:00','ORD','SJC',9,NULL),(1010,'2019-07-18','2019-07-18','10:48:00','12:17:00','ONT','SFO',10,NULL),(1011,'2019-07-18','2019-07-19','22:27:00','08:21:00','OAK','SAN',1,NULL),(1012,'2019-07-22','2019-07-22','12:51:00','19:20:00','SFO','MSY',2,NULL),(1013,'2019-07-17','2019-07-18','23:55:00','05:06:00','SEA','MSP',3,NULL),(1014,'2019-08-01','2019-08-02','21:55:00','06:27:00','SAN','JFK',4,NULL),(1015,'2019-07-17','2019-07-17','06:59:00','12:27:00','JFK','SJC',5,NULL),(1016,'2019-09-30','2019-09-30','19:05:00','20:33:00','MCI','LAX',6,NULL),(1017,'2019-10-13','2019-10-13','11:00:00','15:00:00','ABY','VLD',6,NULL),(1024,'2019-08-10','2019-08-10','12:00:00','14:00:00','SJC','SEA',1,NULL),(1031,'2019-08-11','2019-08-11','19:00:00','23:00:00','SJC','SEA',7,'2019-07-20 22:17:24'),(1034,'2019-08-08','2019-08-08','19:00:00','21:00:00','SEA','SJC',7,'2019-07-20 22:38:50'),(1036,'2019-08-07','2019-08-07','12:00:00','14:00:00','SJC','SEA',1,'2019-07-21 00:10:16'),(1037,'2019-08-03','2019-08-03','12:00:00','14:00:00','SJC','SEA',1,'2019-07-21 02:05:42'),(1038,'2019-10-10','2019-10-10','18:05:00','23:20:00','SJC','VLD',10,'2019-07-21 02:17:55'),(1040,'2019-08-08','2019-08-08','12:00:00','14:00:00','SJC','SEA',1,'2019-07-27 23:41:05');
+INSERT INTO `airline` VALUES (1001,'2019-07-14','2019-07-14','10:52:00','18:30:00','SFO','CMH',1,'2019-07-27 23:42:39'),(1002,'2019-07-15','2019-07-15','06:15:00','11:21:00','LAX','DFW',2,NULL),(1003,'2019-11-20','2019-11-21','22:47:00','00:31:00','MSP','SAN',3,NULL),(1004,'2019-12-20','2019-12-21','21:40:00','05:00:00','SEA','DTW',4,NULL),(1005,'2019-07-18','2019-07-18','15:34:00','22:47:00','MIA','LAX',5,NULL),(1006,'2019-07-17','2019-07-17','06:00:00','08:18:00','PDX','LGB',6,NULL),(1008,'2019-07-16','2019-07-17','22:54:00','07:33:00','SJC','JFK',8,NULL),(1009,'2019-07-21','2019-07-21','10:05:00','12:50:00','ORD','SJC',9,NULL),(1010,'2019-07-18','2019-07-18','10:48:00','12:17:00','ONT','SFO',10,NULL),(1011,'2019-07-18','2019-07-19','22:27:00','08:21:00','OAK','SAN',1,NULL),(1012,'2019-07-22','2019-07-22','12:51:00','19:20:00','SFO','MSY',2,NULL),(1013,'2019-07-17','2019-07-18','23:55:00','05:06:00','SEA','MSP',3,NULL),(1014,'2019-08-01','2019-08-02','21:55:00','06:27:00','SAN','JFK',4,NULL),(1015,'2019-07-17','2019-07-17','06:59:00','12:27:00','JFK','SJC',5,NULL),(1016,'2019-09-30','2019-09-30','19:05:00','20:33:00','MCI','LAX',6,NULL),(1017,'2019-10-13','2019-10-13','11:00:00','15:00:00','ABY','VLD',6,NULL),(1024,'2019-08-10','2019-08-10','12:00:00','14:00:00','SJC','SEA',1,NULL),(1031,'2019-08-11','2019-08-11','19:00:00','23:00:00','SJC','SEA',7,'2019-07-20 22:17:24'),(1034,'2019-08-08','2019-08-08','19:00:00','21:00:00','SEA','SJC',7,'2019-07-20 22:38:50'),(1036,'2019-08-07','2019-08-07','12:00:00','14:00:00','SJC','SEA',1,'2019-07-21 00:10:16'),(1037,'2019-08-03','2019-08-03','12:00:00','14:00:00','SJC','SEA',1,'2019-07-21 02:05:42'),(1038,'2019-10-10','2019-10-10','18:05:00','23:20:00','SJC','VLD',10,'2019-07-21 02:17:55'),(1040,'2019-08-08','2019-08-08','12:00:00','14:00:00','SJC','SEA',1,'2019-07-27 23:41:05');
 /*!40000 ALTER TABLE `airline` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -86,7 +110,7 @@ DELIMITER ;
 
 DROP TABLE IF EXISTS `airplane`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `airplane` (
   `plane_id` int(10) NOT NULL AUTO_INCREMENT,
   `seats` int(10) NOT NULL,
@@ -110,7 +134,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `airport`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `airport` (
   `IATA_CODE` varchar(10) NOT NULL,
   `AIRPORT` varchar(100) NOT NULL,
@@ -134,7 +158,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `booking`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `booking` (
   `ticket_id` int(20) NOT NULL AUTO_INCREMENT,
   `custom_id` int(11) NOT NULL,
@@ -145,7 +169,7 @@ CREATE TABLE `booking` (
   KEY `flight_id_idx` (`flight_id`),
   KEY `custom_id_idx` (`custom_id`),
   CONSTRAINT `custom_id` FOREIGN KEY (`custom_id`) REFERENCES `customer` (`custom_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `flight_id` FOREIGN KEY (`flight_id`) REFERENCES `airline` (`flight_id`) ON UPDATE CASCADE
+  CONSTRAINT `flight_id` FOREIGN KEY (`flight_id`) REFERENCES `airline` (`flight_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -155,7 +179,7 @@ CREATE TABLE `booking` (
 
 LOCK TABLES `booking` WRITE;
 /*!40000 ALTER TABLE `booking` DISABLE KEYS */;
-INSERT INTO `booking` VALUES (1,1005,1005,400,NULL),(2,1005,1005,400,NULL),(4,1003,1001,200,NULL),(6,1005,1012,1950,NULL),(8,1004,1007,550,NULL),(9,1003,1006,170,'2019-07-21 00:09:05'),(10,1002,1036,350,'2019-07-21 02:12:49'),(11,1000,1037,350,'2019-07-21 02:13:52'),(12,1001,1036,350,'2019-07-21 02:14:08'),(15,1002,1008,300,'2019-07-21 02:16:12'),(16,1003,1008,300,'2019-07-21 02:16:17'),(18,1004,1038,500,'2019-07-21 02:18:20'),(20,1007,1006,170,'2019-07-27 22:07:25'),(22,1002,1006,400,'2019-07-27 23:52:12'),(23,1007,1034,300,'2019-07-28 00:03:02'),(25,1007,1007,950,'2019-07-28 00:04:25'),(26,1007,1017,80,'2019-07-28 01:41:31');
+INSERT INTO `booking` VALUES (1,1005,1005,400,NULL),(2,1005,1005,400,NULL),(4,1003,1001,200,NULL),(6,1005,1012,1950,NULL),(9,1003,1006,170,'2019-07-21 00:09:05'),(10,1002,1036,350,'2019-07-21 02:12:49'),(11,1000,1037,350,'2019-07-21 02:13:52'),(12,1001,1036,350,'2019-07-21 02:14:08'),(15,1002,1008,300,'2019-07-21 02:16:12'),(16,1003,1008,300,'2019-07-21 02:16:17'),(18,1004,1038,500,'2019-07-21 02:18:20'),(20,1007,1006,170,'2019-07-27 22:07:25'),(22,1002,1006,400,'2019-07-27 23:52:12'),(23,1007,1034,300,'2019-07-28 00:03:02'),(26,1007,1017,80,'2019-07-28 01:41:31');
 /*!40000 ALTER TABLE `booking` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -184,7 +208,7 @@ DELIMITER ;
 
 DROP TABLE IF EXISTS `customer`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `customer` (
   `custom_id` int(11) NOT NULL AUTO_INCREMENT,
   `password` varchar(64) NOT NULL,
@@ -209,36 +233,12 @@ INSERT INTO `customer` VALUES (1000,'a123','John Smith','1234567899','johnsmith@
 UNLOCK TABLES;
 
 --
--- Table structure for table `admin`
---
-
-DROP TABLE IF EXISTS `admin`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
-CREATE TABLE `admin` (
-  `admin_id` int(11) NOT NULL AUTO_INCREMENT,
-  `password` varchar(64) NOT NULL,
-  PRIMARY KEY (`admin_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2001 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `admin`
---
-
-LOCK TABLES `admin` WRITE;
-/*!40000 ALTER TABLE `admin` DISABLE KEYS */;
-INSERT INTO `admin` VALUES (2000, 'admin123');
-/*!40000 ALTER TABLE `admin` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `distance`
 --
 
 DROP TABLE IF EXISTS `distance`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `distance` (
   `location1` varchar(10) NOT NULL,
   `location2` varchar(10) NOT NULL,
@@ -633,4 +633,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-07-28  0:21:01
+-- Dump completed on 2019-07-29 15:43:52
