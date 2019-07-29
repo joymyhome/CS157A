@@ -153,6 +153,35 @@ INSERT INTO `airport` VALUES ('ABE','Lehigh Valley International Airport'),('ABI
 UNLOCK TABLES;
 
 --
+-- Table structure for table `archive_airline`
+--
+
+DROP TABLE IF EXISTS `archive_airline`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `archive_airline` (
+  `a_flight_id` int(11) NOT NULL,
+  `a_depart_date` date DEFAULT NULL,
+  `a_arrival_date` date DEFAULT NULL,
+  `a_depart_time` time DEFAULT NULL,
+  `a_arrival_time` time DEFAULT NULL,
+  `a_depart_loc` varchar(10) DEFAULT NULL,
+  `a_destination` varchar(10) DEFAULT NULL,
+  `a_plane_id` int(10) DEFAULT NULL,
+  PRIMARY KEY (`a_flight_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `archive_airline`
+--
+
+LOCK TABLES `archive_airline` WRITE;
+/*!40000 ALTER TABLE `archive_airline` DISABLE KEYS */;
+/*!40000 ALTER TABLE `archive_airline` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `booking`
 --
 
@@ -633,4 +662,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-07-29 15:43:52
+-- Dump completed on 2019-07-29 15:52:32
