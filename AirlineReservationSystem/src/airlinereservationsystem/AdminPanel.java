@@ -758,12 +758,18 @@ public class AdminPanel extends javax.swing.JFrame {
          try{
              Connection conn = con.getConnection();
              col.add("Flight ID");
+             col.add("Depart from");
+             col.add("Depart at");
              CallableStatement cs = (CallableStatement) conn.prepareCall("Call same_time_flight()");
              ResultSet rs = cs.executeQuery();
              dat.clear();
+             DateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
              while(rs.next()){
                  Vector<String> v = new Vector<String>();
                  v.add(Integer.toString(rs.getInt("flight_id")));    
+                 v.add(rs.getString("depart_loc"));
+                 v.add(timeFormat.format(rs.getTime("depart_time")));
+                 
                  dat.add(v);
              }
              
