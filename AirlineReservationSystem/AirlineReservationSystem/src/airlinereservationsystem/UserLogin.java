@@ -174,7 +174,7 @@ public class UserLogin extends javax.swing.JFrame {
                         "Congratulations", JOptionPane.INFORMATION_MESSAGE);
                 System.out.println("Customer logged in");
                 dispose();
-                CustomerPanel customercontrol = new CustomerPanel(rs.getString("firstname")+" "+rs.getString("lastname"), rs.getInt("custom_id"));
+                CustomerPanel customercontrol = new CustomerPanel(rs.getString("name"), rs.getInt("custom_id"));
                 customercontrol.setLocationRelativeTo(null);
                 customercontrol.setVisible(true);
                 

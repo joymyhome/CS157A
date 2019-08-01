@@ -76,7 +76,6 @@ public class CustomerPanel extends javax.swing.JFrame {
         jCancelFlight = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu2 = new javax.swing.JMenu();
-        jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -173,14 +172,6 @@ public class CustomerPanel extends javax.swing.JFrame {
     });
 
     jMenu2.setText("Profile");
-
-    jMenuItem2.setText("Update your profile");
-    jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-            jMenuItem2ActionPerformed(evt);
-        }
-    });
-    jMenu2.add(jMenuItem2);
 
     jMenuItem6.setText("Log out");
     jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
@@ -307,10 +298,6 @@ public class CustomerPanel extends javax.swing.JFrame {
     pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
-
     private void jbookflightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbookflightActionPerformed
         // TODO add your handling code here:
         if (jbookingfield.getText().equals("")){
@@ -364,71 +351,199 @@ public class CustomerPanel extends javax.swing.JFrame {
 
     private void jSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jSearchActionPerformed
         // Search for a flight
+        
         String from = jFrom.getText();
         String to = jTo.getText();
         Date date = jDate.getDate();
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(date);
-        String year = Integer.toString(calendar.get(Calendar.YEAR));
-        String month = Integer.toString(calendar.get(Calendar.MONTH)+1);
-        String day = Integer.toString(calendar.get(Calendar.DAY_OF_MONTH));
-        
-        String ddate = year+"-"+month+"-"+day;
-        Getconnection con = new Getconnection();
-        
-        Vector<String> col = new Vector<String>();
-        Vector<Vector> dat = new Vector<Vector>();
-        try{
-            Connection conn = con.getConnection();
-            
-           CallableStatement cs = (CallableStatement) conn.prepareCall("Call search_a_flight(?, ? , ?)");
-            cs.setString(1, from);
-            cs.setString(2, to);
-            cs.setDate(3, java.sql.Date.valueOf(ddate));
-            ResultSet rs = cs.executeQuery();
-            if(rs.next()==false){
-                JOptionPane.showMessageDialog(null, "No flight is scheduled!",
-                        "Sorry", JOptionPane.INFORMATION_MESSAGE);
+        if(from.equals("") && to.equals("")){
+            if(date==null){
+                JOptionPane.showMessageDialog(null, "Please fill in search information",
+                    "Alert", JOptionPane.INFORMATION_MESSAGE);
             }
             else{
-                rs.beforeFirst();
-                col.add("Flight ID");
-                col.add("From");
-                col.add("To");
-                col.add("Departure Date");
-                col.add("Arrival Date");
-                col.add("Departure Time");
-                col.add("Arrival Time");
-                col.add("Price");
-                dat.clear();
-                DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                DateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
-                while(rs.next()){
-                    Vector<String> v = new Vector<String>();
-                    v.add(Integer.toString(rs.getInt("flight_id")));
-                    v.add(rs.getString("depart_loc"));
-                    v.add(rs.getString("destination"));
-                    v.add(dateFormat.format(rs.getDate("depart_date")));
-                    v.add(dateFormat.format(rs.getDate("arrival_date")));
-                    v.add(timeFormat.format(rs.getTime("depart_time")));
-                    v.add(timeFormat.format(rs.getTime("arrival_time")));
-                    v.add(Integer.toString(rs.getInt("price")));
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(date);
+                String year = Integer.toString(calendar.get(Calendar.YEAR));
+                String month = Integer.toString(calendar.get(Calendar.MONTH)+1);
+                String day = Integer.toString(calendar.get(Calendar.DAY_OF_MONTH));
+                String ddate = year+"-"+month+"-"+day;
+                Getconnection con = new Getconnection();
+                Vector<String> col = new Vector<String>();
+                Vector<Vector> dat = new Vector<Vector>();
+                try{
+                    Connection conn = con.getConnection();
 
-                     dat.add(v);
+
+                    CallableStatement cs = (CallableStatement) conn.prepareCall("Call search_only_by_date(?)");
+                    cs.setDate(1, java.sql.Date.valueOf(ddate));
+                    ResultSet rs = cs.executeQuery();
+                    
+                    if(rs.next()==false){
+                        JOptionPane.showMessageDialog(null, "No flight is scheduled!",
+                                "Sorry", JOptionPane.INFORMATION_MESSAGE);
+                    }
+                    else{
+                        rs.beforeFirst();
+                        col.add("Flight ID");
+                        col.add("From");
+                        col.add("To");
+                        col.add("Departure Date");
+                        col.add("Arrival Date");
+                        col.add("Departure Time");
+                        col.add("Arrival Time");
+                        col.add("Price");
+                        dat.clear();
+                        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                        DateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
+                        while(rs.next()){
+                            Vector<String> v = new Vector<String>();
+                            v.add(Integer.toString(rs.getInt("flight_id")));
+                            v.add(rs.getString("depart_loc"));
+                            v.add(rs.getString("destination"));
+                            v.add(dateFormat.format(rs.getDate("depart_date")));
+                            v.add(dateFormat.format(rs.getDate("arrival_date")));
+                            v.add(timeFormat.format(rs.getTime("depart_time")));
+                            v.add(timeFormat.format(rs.getTime("arrival_time")));
+                            v.add(Integer.toString(rs.getInt("price")));
+
+                             dat.add(v);
+                        }
+                    }
                 }
+                catch(Exception e){
+                    System.out.println("Failed searching");
+                     e.printStackTrace();
+                }
+                jFlightTable.setModel(new DefaultTableModel(dat, col){
+                     @Override
+                     public boolean isCellEditable(int row, int column) {
+                        return false;
+                     }
+                    });
             }
         }
-        catch(Exception e){
-            System.out.println("Failed searching");
-             e.printStackTrace();
+        else if(date==null){
+            Getconnection con = new Getconnection();
+            Vector<String> col = new Vector<String>();
+            Vector<Vector> dat = new Vector<Vector>();
+            try{
+                Connection conn = con.getConnection();
+
+
+                CallableStatement cs = (CallableStatement) conn.prepareCall("Call search_only_by_locations(?, ?)");
+                cs.setString(1, from);
+                cs.setString(2, to);
+                ResultSet rs = cs.executeQuery();
+
+                if(rs.next()==false){
+                    JOptionPane.showMessageDialog(null, "No flight is scheduled!",
+                            "Sorry", JOptionPane.INFORMATION_MESSAGE);
+                }
+                else{
+                    rs.beforeFirst();
+                    col.add("Flight ID");
+                    col.add("From");
+                    col.add("To");
+                    col.add("Departure Date");
+                    col.add("Arrival Date");
+                    col.add("Departure Time");
+                    col.add("Arrival Time");
+                    col.add("Price");
+                    dat.clear();
+                    DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                    DateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
+                    while(rs.next()){
+                        Vector<String> v = new Vector<String>();
+                        v.add(Integer.toString(rs.getInt("flight_id")));
+                        v.add(rs.getString("depart_loc"));
+                        v.add(rs.getString("destination"));
+                        v.add(dateFormat.format(rs.getDate("depart_date")));
+                        v.add(dateFormat.format(rs.getDate("arrival_date")));
+                        v.add(timeFormat.format(rs.getTime("depart_time")));
+                        v.add(timeFormat.format(rs.getTime("arrival_time")));
+                        v.add(Integer.toString(rs.getInt("price")));
+
+                         dat.add(v);
+                    }
+                }
+            }
+            catch(Exception e){
+                System.out.println("Failed searching");
+                 e.printStackTrace();
+            }
+            jFlightTable.setModel(new DefaultTableModel(dat, col){
+                 @Override
+                 public boolean isCellEditable(int row, int column) {
+                    return false;
+                 }
+                });
         }
-        jFlightTable.setModel(new DefaultTableModel(dat, col){
-             @Override
-             public boolean isCellEditable(int row, int column) {
-                return false;
-             }
-         });
+        else{
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(date);
+            String year = Integer.toString(calendar.get(Calendar.YEAR));
+            String month = Integer.toString(calendar.get(Calendar.MONTH)+1);
+            String day = Integer.toString(calendar.get(Calendar.DAY_OF_MONTH));
+            String ddate = year+"-"+month+"-"+day;
+            Getconnection con = new Getconnection();
+            Vector<String> col = new Vector<String>();
+            Vector<Vector> dat = new Vector<Vector>();
         
+        
+        
+            try{
+                Connection conn = con.getConnection();
+
+
+               CallableStatement cs = (CallableStatement) conn.prepareCall("Call search_a_flight(?, ? , ?)");
+                cs.setString(1, from);
+                cs.setString(2, to);
+                cs.setDate(3, java.sql.Date.valueOf(ddate));
+                ResultSet rs = cs.executeQuery();
+                if(rs.next()==false){
+                    JOptionPane.showMessageDialog(null, "No flight is scheduled!",
+                            "Sorry", JOptionPane.INFORMATION_MESSAGE);
+                }
+                else{
+                    rs.beforeFirst();
+                    col.add("Flight ID");
+                    col.add("From");
+                    col.add("To");
+                    col.add("Departure Date");
+                    col.add("Arrival Date");
+                    col.add("Departure Time");
+                    col.add("Arrival Time");
+                    col.add("Price");
+                    dat.clear();
+                    DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                    DateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
+                    while(rs.next()){
+                        Vector<String> v = new Vector<String>();
+                        v.add(Integer.toString(rs.getInt("flight_id")));
+                        v.add(rs.getString("depart_loc"));
+                        v.add(rs.getString("destination"));
+                        v.add(dateFormat.format(rs.getDate("depart_date")));
+                        v.add(dateFormat.format(rs.getDate("arrival_date")));
+                        v.add(timeFormat.format(rs.getTime("depart_time")));
+                        v.add(timeFormat.format(rs.getTime("arrival_time")));
+                        v.add(Integer.toString(rs.getInt("price")));
+
+                         dat.add(v);
+                    }
+                }
+            }
+            catch(Exception e){
+                System.out.println("Failed searching");
+                 e.printStackTrace();
+            }
+            jFlightTable.setModel(new DefaultTableModel(dat, col){
+                 @Override
+                 public boolean isCellEditable(int row, int column) {
+                    return false;
+                 }
+             });
+
+        } 
     }//GEN-LAST:event_jSearchActionPerformed
 
     private void jCancelFlightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCancelFlightActionPerformed
@@ -658,7 +773,6 @@ public class CustomerPanel extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
