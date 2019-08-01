@@ -79,6 +79,8 @@ public class AdminPanel extends javax.swing.JFrame {
         jLabel14 = new javax.swing.JLabel();
         dateForArchive = new com.toedter.calendar.JDateChooser();
         archive = new javax.swing.JButton();
+        custConfBookig = new javax.swing.JButton();
+        custAndBookings = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         logOut = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -254,6 +256,20 @@ public class AdminPanel extends javax.swing.JFrame {
             }
         });
 
+        custConfBookig.setText("View Customers with Confirmed Bookings");
+        custConfBookig.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                custConfBookigActionPerformed(evt);
+            }
+        });
+
+        custAndBookings.setText("View Customers and Bookings");
+        custAndBookings.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                custAndBookingsActionPerformed(evt);
+            }
+        });
+
         logOut.setText("Options");
 
         jMenuItem1.setText("Log out");
@@ -320,8 +336,12 @@ public class AdminPanel extends javax.swing.JFrame {
                                                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                                                 .addComponent(jLabel12)
                                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                                .addComponent(destination, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)))))))))
-                                .addGap(0, 0, Short.MAX_VALUE))
+                                                                .addComponent(destination, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))))))))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(custConfBookig)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                                        .addComponent(custAndBookings, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(18, 18, 18))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(jLabel14)
@@ -330,16 +350,17 @@ public class AdminPanel extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(archive)
                                 .addGap(97, 97, 97))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(176, 176, 176)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(archiveFlight, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(36, 36, 36)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                        .addGap(0, 40, Short.MAX_VALUE)
+                                        .addGap(0, 0, Short.MAX_VALUE)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                             .addGroup(layout.createSequentialGroup()
                                                 .addComponent(popularFlights, javax.swing.GroupLayout.PREFERRED_SIZE, 472, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -364,12 +385,11 @@ public class AdminPanel extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(numAvailableSeats, javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(topTwoDest, javax.swing.GroupLayout.Alignment.TRAILING))))))
-                        .addGap(49, 49, 49))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(176, 176, 176)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                            .addComponent(topTwoDest, javax.swing.GroupLayout.Alignment.TRAILING)))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(archiveFlight, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(49, 49, 49)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 807, Short.MAX_VALUE)
                     .addComponent(jScrollPane1))
@@ -390,7 +410,11 @@ public class AdminPanel extends javax.swing.JFrame {
                             .addComponent(archiveFlight)
                             .addComponent(viewAllFlights, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(updateFlight))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(custConfBookig)
+                            .addComponent(custAndBookings))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(dateForArchive, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -431,7 +455,7 @@ public class AdminPanel extends javax.swing.JFrame {
                                         .addComponent(arriveDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel9)
                                     .addComponent(departTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -448,12 +472,12 @@ public class AdminPanel extends javax.swing.JFrame {
                                     .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(planeId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(insertFlight))
-                                .addGap(31, 31, 31)
+                                .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel6)
                                     .addComponent(flightToBeDeleted, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(deleteFlight))
-                                .addGap(26, 26, 26)))
+                                .addGap(39, 39, 39)))
                         .addContainerGap())))
         );
 
@@ -531,6 +555,14 @@ public class AdminPanel extends javax.swing.JFrame {
     private void archiveActionPerformed(java.awt.event.ActionEvent evt) {                                        
         archiveFlights();
     }                                       
+
+    private void custConfBookigActionPerformed(java.awt.event.ActionEvent evt) {                                               
+        viewCustWithConfirmedBookings();
+    }                                              
+
+    private void custAndBookingsActionPerformed(java.awt.event.ActionEvent evt) {                                                
+        viewCustAndBookedCust();
+    }                                               
 
     //Works
     private void viewAllFlights() {
@@ -900,6 +932,69 @@ public class AdminPanel extends javax.swing.JFrame {
         updateFlightWindow.setLocationRelativeTo(null);
         updateFlightWindow.setVisible(true);
     }
+    
+    private void viewCustWithConfirmedBookings() {
+//         Getconnection con = new Getconnection();
+//         
+//         Vector<String> col = new Vector<String>();
+//         Vector<Vector> dat = new Vector<Vector>();
+//         try{
+//             Connection conn = con.getConnection();
+//             col.add("Customer ID");
+//             CallableStatement cs = (CallableStatement) conn.prepareCall("Call userPayment()");
+//             ResultSet rs = cs.executeQuery();
+//             dat.clear();
+//             
+//             while(rs.next()){
+//                 Vector<String> v = new Vector<String>();
+//                 v.add(Integer.toString(rs.getInt("customer.custom_id")));    
+//                 dat.add(v);
+//             }
+//             
+//         }
+//         catch(Exception e){
+//             System.out.println("Failed populating data");
+//             e.printStackTrace();
+//         }
+//         customerTable.setModel(new DefaultTableModel(dat, col){
+//             @Override
+//             public boolean isCellEditable(int row, int column) {
+//                return false;
+//             }
+//         });
+    }
+    
+    private void viewCustAndBookedCust() {
+//         Getconnection con = new Getconnection();
+//         
+//         Vector<String> col = new Vector<String>();
+//         Vector<Vector> dat = new Vector<Vector>();
+//         try{
+//             Connection conn = con.getConnection();
+//             col.add("Customer ID");
+//             CallableStatement cs = (CallableStatement) conn.prepareCall("Call userBooked()");
+//             ResultSet rs = cs.executeQuery();
+//             dat.clear();
+//             
+//             while(rs.next()){
+//                 Vector<String> v = new Vector<String>();
+//                 v.add(Integer.toString(rs.getInt("")));    
+//                 dat.add(v);
+//             }
+//             
+//         }
+//         catch(Exception e){
+//             System.out.println("Failed populating data");
+//             e.printStackTrace();
+//         }
+//         customerTable.setModel(new DefaultTableModel(dat, col){
+//             @Override
+//             public boolean isCellEditable(int row, int column) {
+//                return false;
+//             }
+//         });
+    }
+
         
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -939,6 +1034,8 @@ public class AdminPanel extends javax.swing.JFrame {
     private javax.swing.JButton archiveFlight;
     private com.toedter.calendar.JDateChooser arriveDate;
     private javax.swing.JTextField arriveTime;
+    private javax.swing.JButton custAndBookings;
+    private javax.swing.JButton custConfBookig;
     private javax.swing.JTable customerTable;
     private com.toedter.calendar.JDateChooser dateForArchive;
     private javax.swing.JButton deleteFlight;
