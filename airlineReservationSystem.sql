@@ -479,7 +479,7 @@ DELIMITER ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `same_time_flight`()
 begin
-	select flight_id, depart_loc from airline A1 where exists (select * from airline A2 where 
+	select flight_id, depart_loc, depart_time from airline A1 where exists (select * from airline A2 where 
 	A1.depart_time = A2.depart_time and A1.depart_loc=A2.depart_loc and A1.depart_date <> A2.depart_date);
 end ;;
 DELIMITER ;
@@ -683,4 +683,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-08-01 10:09:29
+-- Dump completed on 2019-08-01 10:17:40
