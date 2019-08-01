@@ -829,20 +829,17 @@ public class AdminPanel extends javax.swing.JFrame {
          Vector<Vector> dat = new Vector<Vector>();
          try{
              Connection conn = con.getConnection();
-             col.add("Departure Location");
              col.add("Top Two Destinations");
              CallableStatement cs = (CallableStatement) conn.prepareCall("Call top_2_destination(?)");
              cs.setString(1, departLocation);
                           
-             boolean hasResult2 = cs.execute();
-             int i = 1;
-             if (hasResult2) {
-                ResultSet rs = cs.getResultSet(); 
-                rs.next();
-            }
-             
+             ResultSet rs = cs.executeQuery();
              dat.clear();
-             
+             while(rs.next()){
+                 Vector<String> v = new Vector<String>();
+                 v.add(rs.getString("destination"));
+                 dat.add(v);
+             }             
                    
          }
          catch(Exception e){
