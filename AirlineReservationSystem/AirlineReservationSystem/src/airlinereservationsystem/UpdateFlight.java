@@ -45,7 +45,6 @@ public class UpdateFlight extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         departDate = new com.toedter.calendar.JDateChooser();
         arriveDate = new com.toedter.calendar.JDateChooser();
@@ -54,9 +53,9 @@ public class UpdateFlight extends javax.swing.JFrame {
         departLoc = new javax.swing.JTextField();
         destination = new javax.swing.JTextField();
         planeId = new javax.swing.JTextField();
-        price = new javax.swing.JTextField();
         flightNum = new javax.swing.JTextField();
         submitUpdateFlight = new javax.swing.JButton();
+        jreturn = new javax.swing.JButton();
 
         jTextField7.setText("jTextField7");
 
@@ -80,8 +79,6 @@ public class UpdateFlight extends javax.swing.JFrame {
 
         jLabel9.setText("Plane ID:");
 
-        jLabel10.setText("Price:");
-
         jLabel11.setText("**NOTE**: If you do not wish to change some data of the flight, please enter its original value.");
 
         departLoc.addActionListener(new java.awt.event.ActionListener() {
@@ -100,6 +97,13 @@ public class UpdateFlight extends javax.swing.JFrame {
         submitUpdateFlight.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 submitUpdateFlightActionPerformed(evt);
+            }
+        });
+
+        jreturn.setText("Return");
+        jreturn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jreturnActionPerformed(evt);
             }
         });
 
@@ -127,19 +131,22 @@ public class UpdateFlight extends javax.swing.JFrame {
                                     .addComponent(arriveDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(128, 128, 128)
-                                .addComponent(arriveTime)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jreturn, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(arriveTime))))
                         .addGap(46, 46, 46)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel8)
-                            .addComponent(jLabel9)
-                            .addComponent(jLabel10))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(planeId, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
-                            .addComponent(destination, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(departLoc, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(price)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel7)
+                                    .addComponent(jLabel8)
+                                    .addComponent(jLabel9))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(planeId, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
+                                    .addComponent(destination, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(departLoc, javax.swing.GroupLayout.Alignment.LEADING)))
+                            .addComponent(submitUpdateFlight, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(279, 279, 279)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -150,10 +157,7 @@ public class UpdateFlight extends javax.swing.JFrame {
                                 .addComponent(flightNum, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(73, 73, 73)
-                        .addComponent(jLabel11))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(303, 303, 303)
-                        .addComponent(submitUpdateFlight, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLabel11)))
                 .addContainerGap(79, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -190,12 +194,12 @@ public class UpdateFlight extends javax.swing.JFrame {
                 .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(jLabel10)
-                    .addComponent(arriveTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(price, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(31, 31, 31)
-                .addComponent(submitUpdateFlight)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
+                    .addComponent(arriveTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(submitUpdateFlight)
+                    .addComponent(jreturn))
+                .addGap(50, 50, 50)
                 .addComponent(jLabel11)
                 .addGap(43, 43, 43))
         );
@@ -226,10 +230,10 @@ public class UpdateFlight extends javax.swing.JFrame {
              String to = destination.getText();
              
              String airplaneId = planeId.getText();
-             String flightPrice = price.getText();
+             //String flightPrice = price.getText();
              
              Connection conn = con.getConnection();
-             CallableStatement cs = (CallableStatement) conn.prepareCall("Call update_airline(?, ?, ?, ?, ?, ?, ?, ?, ?)");
+             CallableStatement cs = (CallableStatement) conn.prepareCall("Call update_airline(?, ?, ?, ?, ?, ?, ?, ?)");
            
              cs.setInt(1, Integer.parseInt(flightId));
              cs.setDate(2, new java.sql.Date(departureDate.getTime()));
@@ -239,7 +243,7 @@ public class UpdateFlight extends javax.swing.JFrame {
              cs.setString(6, from);
              cs.setString(7, to);
              cs.setString(8, airplaneId);
-             cs.setInt(9, Integer.parseInt(flightPrice));
+             //cs.setInt(9, Integer.parseInt(flightPrice));
              
              cs.executeUpdate();
          }
@@ -250,6 +254,11 @@ public class UpdateFlight extends javax.swing.JFrame {
         dispose();
         JOptionPane.showMessageDialog(null, "Flight successfully updated.", "Message", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_submitUpdateFlightActionPerformed
+
+    private void jreturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jreturnActionPerformed
+        // TODO add your handling code here:
+        dispose();
+    }//GEN-LAST:event_jreturnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -297,7 +306,6 @@ public class UpdateFlight extends javax.swing.JFrame {
     private javax.swing.JTextField flightNum;
     private com.toedter.calendar.JDateChooser jDateChooser3;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -307,8 +315,8 @@ public class UpdateFlight extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JTextField jTextField7;
+    private javax.swing.JButton jreturn;
     private javax.swing.JTextField planeId;
-    private javax.swing.JTextField price;
     private javax.swing.JButton submitUpdateFlight;
     // End of variables declaration//GEN-END:variables
 }
