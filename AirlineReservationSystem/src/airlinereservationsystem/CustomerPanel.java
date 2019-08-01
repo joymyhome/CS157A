@@ -76,7 +76,6 @@ public class CustomerPanel extends javax.swing.JFrame {
         jCancelFlight = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu2 = new javax.swing.JMenu();
-        jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -173,14 +172,6 @@ public class CustomerPanel extends javax.swing.JFrame {
     });
 
     jMenu2.setText("Profile");
-
-    jMenuItem2.setText("Update your profile");
-    jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-            jMenuItem2ActionPerformed(evt);
-        }
-    });
-    jMenu2.add(jMenuItem2);
 
     jMenuItem6.setText("Log out");
     jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
@@ -306,10 +297,6 @@ public class CustomerPanel extends javax.swing.JFrame {
 
     pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jbookflightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbookflightActionPerformed
         // TODO add your handling code here:
@@ -786,7 +773,6 @@ public class CustomerPanel extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
