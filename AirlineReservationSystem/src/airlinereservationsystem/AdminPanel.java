@@ -312,7 +312,7 @@ public class AdminPanel extends javax.swing.JFrame {
                                         .addGap(18, 18, 18)
                                         .addComponent(intFlightNum, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 139, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(numAvailableSeats, javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(topTwoDest, javax.swing.GroupLayout.Alignment.TRAILING)))
@@ -396,7 +396,7 @@ public class AdminPanel extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(197, 197, 197)
                                 .addComponent(archiveFlight, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 807, Short.MAX_VALUE)
                     .addComponent(jScrollPane1))
@@ -439,10 +439,11 @@ public class AdminPanel extends javax.swing.JFrame {
                                             .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(dateForArchive, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                 .addGap(38, 38, 38)))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel15)
-                            .addComponent(intFlightNum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(numAvailableSeats))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(intFlightNum, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel15)
+                                .addComponent(numAvailableSeats)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(topTwoDest)
@@ -608,7 +609,8 @@ public class AdminPanel extends javax.swing.JFrame {
              col.add("Departure Time");
              col.add("Arrival Time");
              col.add("Price");
-             String selectQuery = "Select flight_id, depart_date, arrival_date, depart_time, arrival_time, depart_loc, destination, plane_id, price "
+             col.add("Update at");
+             String selectQuery = "Select flight_id, depart_date, arrival_date, depart_time, arrival_time, depart_loc, destination, plane_id, price, UPDATEAT "
                      + "from airline,price where depart_loc=location1 and destination=location2 order by flight_id";
              ResultSet rs = conn.createStatement().executeQuery(selectQuery);
              dat.clear();
@@ -624,6 +626,7 @@ public class AdminPanel extends javax.swing.JFrame {
                  v.add(timeFormat.format(rs.getTime("depart_time")));
                  v.add(timeFormat.format(rs.getTime("arrival_time")));
                  v.add(Integer.toString(rs.getInt("price")));
+                 v.add(dateFormat.format(rs.getDate("UPDATEAT")));
              
                  dat.add(v);
              }
@@ -788,6 +791,7 @@ public class AdminPanel extends javax.swing.JFrame {
              col.add("Departure Time");
              col.add("Arrival Time");
              col.add("Plane ID");
+             col.add("Old Update Time");
              CallableStatement cs = (CallableStatement) conn.prepareCall("Call viewArchivedFlights()");
              
              
@@ -805,6 +809,7 @@ public class AdminPanel extends javax.swing.JFrame {
                  v.add(timeFormat.format(rs.getTime("a_depart_time")));
                  v.add(timeFormat.format(rs.getTime("a_arrival_time")));
                  v.add(Integer.toString(rs.getInt("a_plane_id")));
+                 v.add(dateFormat.format(rs.getDate("old_update_time")));
              
                  dat.add(v);
              }
