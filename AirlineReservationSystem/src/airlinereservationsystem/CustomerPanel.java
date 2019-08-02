@@ -602,7 +602,7 @@ public class CustomerPanel extends javax.swing.JFrame {
              col.add("Arrival Time");
              col.add("Price");
              String selectQuery = "Select flight_id, depart_date, arrival_date, depart_time, arrival_time, depart_loc, destination, plane_id, price "
-                     + "from airline,distance where depart_loc=location1 and destination=location2";
+                     + "from airline,price where depart_loc=location1 and destination=location2";
              ResultSet rs = conn.createStatement().executeQuery(selectQuery);
              dat.clear();
              DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
