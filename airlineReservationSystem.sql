@@ -75,7 +75,7 @@ CREATE TABLE `airline` (
 
 LOCK TABLES `airline` WRITE;
 /*!40000 ALTER TABLE `airline` DISABLE KEYS */;
-INSERT INTO `airline` VALUES (1001,'2019-07-14','2019-07-14','10:52:00','18:30:00','SFO','CMH',1,'2019-07-27 23:42:39'),(1002,'2019-07-15','2019-07-15','06:15:00','11:21:00','LAX','DFW',2,NULL),(1003,'2019-11-20','2019-11-21','22:47:00','00:31:00','MSP','SAN',3,NULL),(1004,'2019-12-20','2019-12-21','21:40:00','05:00:00','SEA','DTW',4,NULL),(1005,'2019-07-18','2019-07-18','15:34:00','22:47:00','MIA','LAX',5,NULL),(1006,'2019-07-17','2019-07-17','06:00:00','08:18:00','PDX','LGB',6,NULL),(1008,'2019-07-16','2019-07-17','22:54:00','07:33:00','SJC','JFK',8,NULL),(1009,'2019-07-21','2019-07-21','10:05:00','12:50:00','ORD','SJC',9,NULL),(1010,'2019-07-18','2019-07-18','10:48:00','12:17:00','ONT','SFO',10,NULL),(1011,'2019-07-18','2019-07-19','22:27:00','08:21:00','OAK','SAN',1,NULL),(1012,'2019-07-22','2019-07-22','12:51:00','19:20:00','SFO','MSY',2,NULL),(1013,'2019-07-17','2019-07-18','23:55:00','05:06:00','SEA','MSP',3,NULL),(1014,'2019-08-14','2019-08-15','22:00:00','04:50:00','SFO','CMH',4,'2019-08-01 16:10:03'),(1015,'2019-07-17','2019-07-17','06:59:00','12:27:00','JFK','SJC',5,NULL),(1016,'2019-09-30','2019-09-30','19:05:00','20:33:00','MCI','LAX',6,NULL),(1017,'2019-10-13','2019-10-13','11:00:00','15:00:00','ABY','VLD',6,NULL),(1024,'2019-08-10','2019-08-10','12:00:00','14:00:00','SJC','SEA',1,NULL),(1031,'2019-08-11','2019-08-11','19:00:00','23:00:00','SJC','SEA',7,'2019-07-20 22:17:24'),(1034,'2019-08-08','2019-08-08','19:00:00','21:00:00','SEA','SJC',7,'2019-07-20 22:38:50'),(1036,'2019-08-07','2019-08-07','12:00:00','14:00:00','SJC','SEA',1,'2019-07-21 00:10:16'),(1037,'2019-08-03','2019-08-03','12:00:00','14:00:00','SJC','SEA',1,'2019-07-21 02:05:42'),(1038,'2019-10-10','2019-10-10','18:05:00','23:20:00','SJC','VLD',10,'2019-07-21 02:17:55'),(1040,'2019-08-08','2019-08-08','12:00:00','14:00:00','SJC','SEA',1,'2019-07-27 23:41:05'),(1041,'2019-11-04','2010-11-04','15:03:00','19:20:00','ABY','VLD',5,'2019-08-01 03:49:59');
+INSERT INTO `airline` VALUES (1002,'2019-07-15','2019-07-15','06:15:00','11:21:00','LAX','DFW',2,NULL),(1003,'2019-11-20','2019-11-21','22:47:00','00:31:00','MSP','SAN',3,NULL),(1005,'2019-07-18','2019-07-18','15:34:00','22:47:00','MIA','LAX',5,'2019-07-17 18:00:00'),(1006,'2019-07-17','2019-07-17','06:00:00','08:18:00','PDX','LGB',6,'2019-08-05 18:00:00'),(1011,'2019-07-18','2019-07-19','22:27:00','08:21:00','OAK','SAN',1,'2019-07-17 18:00:00'),(1013,'2019-07-17','2019-07-18','23:55:00','05:06:00','SEA','MSP',3,'2019-07-13 18:00:00'),(1014,'2019-08-14','2019-08-15','22:00:00','04:50:00','SFO','CMH',4,'2019-08-01 16:10:03'),(1015,'2019-07-17','2019-07-17','06:59:00','12:27:00','JFK','SJC',5,'2019-07-20 18:00:00'),(1024,'2019-08-10','2019-08-10','12:00:00','14:00:00','SJC','SEA',1,'2019-07-14 18:00:00'),(1041,'2019-11-04','2010-11-04','15:03:00','19:20:00','ABY','VLD',5,'2019-08-01 03:49:59');
 /*!40000 ALTER TABLE `airline` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -168,6 +168,7 @@ CREATE TABLE `archive_airline` (
   `a_depart_loc` varchar(10) DEFAULT NULL,
   `a_destination` varchar(10) DEFAULT NULL,
   `a_plane_id` int(10) DEFAULT NULL,
+  `old_update_time` datetime DEFAULT NULL,
   PRIMARY KEY (`a_flight_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -178,6 +179,7 @@ CREATE TABLE `archive_airline` (
 
 LOCK TABLES `archive_airline` WRITE;
 /*!40000 ALTER TABLE `archive_airline` DISABLE KEYS */;
+INSERT INTO `archive_airline` VALUES (1001,'2019-07-14','2019-07-14','10:52:00','18:30:00','SFO','CMH',1,NULL),(1004,'2019-12-20','2019-12-21','21:40:00','05:00:00','SEA','DTW',4,'2019-07-05 11:00:00'),(1008,'2019-07-16','2019-07-17','22:54:00','07:33:00','SJC','JFK',8,'2019-07-03 11:00:00'),(1009,'2019-07-21','2019-07-21','10:05:00','12:50:00','ORD','SJC',9,'2019-07-04 11:00:00'),(1010,'2019-07-18','2019-07-18','10:48:00','12:17:00','ONT','SFO',10,'2019-07-05 11:00:00'),(1012,'2019-07-22','2019-07-22','12:51:00','19:20:00','SFO','MSY',2,'2019-07-04 11:00:00'),(1016,'2019-09-30','2019-09-30','19:05:00','20:33:00','MCI','LAX',6,'2019-06-01 09:10:03'),(1017,'2019-10-13','2019-10-13','11:00:00','15:00:00','ABY','VLD',6,'2019-06-14 09:10:03'),(1031,'2019-08-11','2019-08-11','19:00:00','23:00:00','SJC','SEA',7,NULL),(1034,'2019-08-08','2019-08-08','19:00:00','21:00:00','SEA','SJC',7,NULL),(1036,'2019-08-07','2019-08-07','12:00:00','14:00:00','SJC','SEA',1,NULL),(1037,'2019-08-03','2019-08-03','12:00:00','14:00:00','SJC','SEA',1,NULL),(1038,'2019-10-10','2019-10-10','18:05:00','23:20:00','SJC','VLD',10,NULL),(1040,'2019-08-08','2019-08-08','12:00:00','14:00:00','SJC','SEA',1,NULL);
 /*!40000 ALTER TABLE `archive_airline` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -208,7 +210,7 @@ CREATE TABLE `booking` (
 
 LOCK TABLES `booking` WRITE;
 /*!40000 ALTER TABLE `booking` DISABLE KEYS */;
-INSERT INTO `booking` VALUES (1,1005,1005,400,NULL),(2,1005,1005,400,NULL),(4,1003,1001,200,NULL),(6,1005,1012,1950,NULL),(9,1003,1006,170,'2019-07-21 00:09:05'),(10,1002,1036,350,'2019-07-21 02:12:49'),(11,1000,1037,350,'2019-07-21 02:13:52'),(12,1001,1036,350,'2019-07-21 02:14:08'),(15,1002,1008,300,'2019-07-21 02:16:12'),(16,1003,1008,300,'2019-07-21 02:16:17'),(18,1004,1038,500,'2019-07-21 02:18:20'),(20,1007,1006,170,'2019-07-27 22:07:25'),(22,1002,1006,400,'2019-07-27 23:52:12'),(23,1007,1034,300,'2019-07-28 00:03:02'),(26,1007,1017,80,'2019-07-28 01:41:31');
+INSERT INTO `booking` VALUES (1,1005,1005,400,NULL),(2,1005,1005,400,NULL),(9,1003,1006,170,'2019-07-21 00:09:05'),(20,1007,1006,170,'2019-07-27 22:07:25'),(22,1002,1006,400,'2019-07-27 23:52:12');
 /*!40000 ALTER TABLE `booking` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -292,6 +294,34 @@ UNLOCK TABLES;
 --
 -- Dumping routines for database 'AIRLINES'
 --
+/*!50003 DROP PROCEDURE IF EXISTS `archiveFlight` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `archiveFlight`(
+IN date_in date)
+BEGIN
+    START TRANSACTION;
+    INSERT INTO archive_airline
+    SELECT flight_id, depart_date, arrival_date, depart_time, arrival_time, depart_loc, destination, plane_id, UPDATEAT
+    FROM airline
+    WHERE UPDATEAT < date_in;
+    
+    DELETE FROM airline
+    WHERE UPDATEAT < date_in;
+    COMMIT;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `booking_flight` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -343,8 +373,8 @@ DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `cheapest_n_flight`(
 in top_n int)
 begin
-	select flight_id, depart_date, arrival_date, depart_time, arrival_time, airline.depart_loc, airline.destination, plane_id, price from airline, distance where airline.depart_loc=distance.location1 
-		and airline.destination=distance.location2  order by price limit top_n;
+	select flight_id, depart_date, arrival_date, depart_time, arrival_time, airline.depart_loc, airline.destination, plane_id, price from airline, price where airline.depart_loc=price.location1 
+		and airline.destination=price.location2  order by price limit top_n;
 end ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -673,6 +703,26 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `viewArchivedFlights` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `viewArchivedFlights`()
+BEGIN
+    SELECT a_flight_id, a_depart_date, a_arrival_date, a_depart_time, a_arrival_time, a_depart_loc, a_destination, a_plane_id
+    FROM archive_airline;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -683,4 +733,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-08-01 10:17:40
+-- Dump completed on 2019-08-01 20:16:45
