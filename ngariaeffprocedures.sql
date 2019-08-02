@@ -9,13 +9,14 @@ BEGIN
 END //
 DELIMITER ;
 
--- ADMIN: all users in database along with all users that are in booking
+-- ADMIN: users who are booked
 DROP PROCEDURE IF EXISTS userBooked;
 DELIMITER //
 CREATE PROCEDURE userBooked()
 BEGIN
-	SELECT custom_id AS CustomerID FROM customer
-    UNION ALL
-    SELECT custom_id AS BookingID FROM booking;
+	SELECT customer.custom_id FROM customer WHERE customer.custom_id IN (
+	SELECT customer.custom_id FROM customer, booking WHERE customer.custom_id = booking.custom_id
+    UNION
+    SELECT booking.custom_id FROM customer, booking WHERE customer.custom_id = booking.custom_id);
 END //
 DELIMITER ;
