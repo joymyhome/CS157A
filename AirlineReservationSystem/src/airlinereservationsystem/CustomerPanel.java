@@ -548,26 +548,34 @@ public class CustomerPanel extends javax.swing.JFrame {
 
     private void jCancelFlightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCancelFlightActionPerformed
         // Cancel a flight
-        int cancelTicketId = Integer.parseInt(jCancel.getText());
-        Getconnection con = new Getconnection();
-        try{
-            Connection conn = con.getConnection();
-            String deleteSql = "delete from booking where ticket_id=?";
-            PreparedStatement pstmt = conn.prepareStatement(deleteSql);
-            pstmt.setInt(1, cancelTicketId);
-            int rs = pstmt.executeUpdate();
-            if(rs == 1){
-                userBooking();
-            }
-            else{
-                JOptionPane.showMessageDialog(null, "It has been deleted",
+        if(jCancel.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "You haven't provided the ticket number",
                         "Alert", JOptionPane.INFORMATION_MESSAGE);
-            }
         }
-        catch(Exception e){
-            System.out.println("ERROR: Could not connect to Airline Reservation System");
-            e.printStackTrace();
-            return;
+        else{
+            
+       
+            int cancelTicketId = Integer.parseInt(jCancel.getText());
+            Getconnection con = new Getconnection();
+            try{
+                Connection conn = con.getConnection();
+                String deleteSql = "delete from booking where ticket_id=?";
+                PreparedStatement pstmt = conn.prepareStatement(deleteSql);
+                pstmt.setInt(1, cancelTicketId);
+                int rs = pstmt.executeUpdate();
+                if(rs == 1){
+                    userBooking();
+                }
+                else{
+                    JOptionPane.showMessageDialog(null, "It has been deleted",
+                            "Alert", JOptionPane.INFORMATION_MESSAGE);
+                }
+            }
+            catch(Exception e){
+                System.out.println("ERROR: Could not connect to Airline Reservation System");
+                e.printStackTrace();
+                return;
+            }
         }
         
         
