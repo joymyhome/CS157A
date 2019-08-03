@@ -200,7 +200,7 @@ CREATE TABLE `booking` (
   KEY `custom_id_idx` (`custom_id`),
   CONSTRAINT `custom_id` FOREIGN KEY (`custom_id`) REFERENCES `customer` (`custom_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `flight_id` FOREIGN KEY (`flight_id`) REFERENCES `airline` (`flight_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -209,7 +209,7 @@ CREATE TABLE `booking` (
 
 LOCK TABLES `booking` WRITE;
 /*!40000 ALTER TABLE `booking` DISABLE KEYS */;
-INSERT INTO `booking` VALUES (1,1005,1005,400,NULL),(9,1003,1006,170,'2019-07-21 00:09:05'),(22,1002,1006,400,'2019-07-27 23:52:12'),(28,1007,1024,150,'2019-08-02 17:43:10'),(29,1007,1034,300,'2019-08-02 17:43:18'),(30,1007,1041,80,'2019-08-02 17:43:39');
+INSERT INTO `booking` VALUES (1,1005,1005,400,NULL),(9,1003,1006,170,'2019-07-21 00:09:05'),(22,1002,1006,400,'2019-07-27 23:52:12'),(28,1007,1024,150,'2019-08-02 17:43:10'),(29,1007,1034,300,'2019-08-02 17:43:18'),(31,1007,1008,930,'2019-08-03 17:50:16');
 /*!40000 ALTER TABLE `booking` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -533,7 +533,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `search_a_flight`(
     
 )
 begin
-	select flight_id, depart_loc, destination, depart_date, arrival_date, depart_time, arrival_time, plane_id, price from airline, distance 
+	select flight_id, depart_loc, destination, depart_date, arrival_date, depart_time, arrival_time, plane_id, price from airline, price 
     where depart_loc=location1 
 		and destination=location2 and depart_loc=n_depart_location and destination=n_arrival_location and depart_date=n_depart_date;
 end ;;
@@ -557,7 +557,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `search_only_by_date`(
     
 )
 begin
-	select flight_id, depart_loc, destination, depart_date, arrival_date, depart_time, arrival_time, plane_id, price from airline, distance 
+	select flight_id, depart_loc, destination, depart_date, arrival_date, depart_time, arrival_time, plane_id, price from airline, price 
     where depart_loc=location1 
 		and destination=location2 and depart_date=n_depart_date;
 end ;;
@@ -582,7 +582,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `search_only_by_locations`(
     
 )
 begin
-	select flight_id, depart_loc, destination, depart_date, arrival_date, depart_time, arrival_time, plane_id, price from airline, distance 
+	select flight_id, depart_loc, destination, depart_date, arrival_date, depart_time, arrival_time, plane_id, price from airline, price
     where depart_loc=location1 
 		and destination=location2 and depart_loc=n_depart_location and destination=n_arrival_location;
 end ;;
@@ -775,4 +775,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-08-02 19:26:28
+-- Dump completed on 2019-08-03 10:51:05
