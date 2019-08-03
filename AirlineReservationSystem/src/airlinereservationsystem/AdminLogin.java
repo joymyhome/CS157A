@@ -128,36 +128,43 @@ public class AdminLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        int username = Integer.parseInt(jusername.getText());
+
         String password = new String(jpassword.getPassword());
-        
-        
-        Getconnection con = new Getconnection();
-        try{
-            Connection conn = con.getConnection();
-            String selectSql = "select * from admin where admin_id=? and password = ?";
-            PreparedStatement pstmt = conn.prepareStatement(selectSql);
-            pstmt.setInt(1, username);
-            pstmt.setString(2, password);
-            ResultSet rs = pstmt.executeQuery();
-            if(rs.next()==true){
-                JOptionPane.showMessageDialog(null, "You've successfully logged in!",
-                        "Congratulations", JOptionPane.INFORMATION_MESSAGE);
-                System.out.println("Admin logged in");
-                dispose();
-                AdminPanel adminControl = new AdminPanel();
-                adminControl.setLocationRelativeTo(null);
-                adminControl.setVisible(true);
-                
-            }else{
-                JOptionPane.showMessageDialog(null, "Admin ID not found or password doesn't match!",
+        if(jusername.getText().equals("") || password.equals("")){
+            JOptionPane.showMessageDialog(null, "Admin ID not found or password doesn't match!",
                         "Error", JOptionPane.INFORMATION_MESSAGE);
-            }
-        }catch(SQLException e){
-            System.out.println("ERROR: Could not connect to Airline Reservation System");
-            e.printStackTrace();
-            return;
         }
+        else{
+            int username = Integer.parseInt(jusername.getText());
+            Getconnection con = new Getconnection();
+            try{
+                Connection conn = con.getConnection();
+                String selectSql = "select * from admin where admin_id=? and password = ?";
+                PreparedStatement pstmt = conn.prepareStatement(selectSql);
+                pstmt.setInt(1, username);
+                pstmt.setString(2, password);
+                ResultSet rs = pstmt.executeQuery();
+                if(rs.next()==true){
+                    JOptionPane.showMessageDialog(null, "You've successfully logged in!",
+                            "Congratulations", JOptionPane.INFORMATION_MESSAGE);
+                    System.out.println("Admin logged in");
+                    dispose();
+                    AdminPanel adminControl = new AdminPanel();
+                    adminControl.setLocationRelativeTo(null);
+                    adminControl.setVisible(true);
+
+                }else{
+                    JOptionPane.showMessageDialog(null, "Admin ID not found or password doesn't match!",
+                            "Error", JOptionPane.INFORMATION_MESSAGE);
+                }
+            }catch(SQLException e){
+                System.out.println("ERROR: Could not connect to Airline Reservation System");
+                e.printStackTrace();
+                return;
+            }    
+        }
+        
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jpasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jpasswordActionPerformed
