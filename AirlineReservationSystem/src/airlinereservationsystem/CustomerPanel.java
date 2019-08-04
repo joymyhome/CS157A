@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -319,6 +320,8 @@ public class CustomerPanel extends javax.swing.JFrame {
             
             }
             catch(Exception e){
+                if (e instanceof SQLIntegrityConstraintViolationException)
+                    JOptionPane.showMessageDialog(null, "Incorrect flight information.", "Mesage", JOptionPane.INFORMATION_MESSAGE);
                 System.out.println("ERROR: Could not connect to Airline Reservation System");
                 e.printStackTrace();
                 return;
@@ -563,11 +566,13 @@ public class CustomerPanel extends javax.swing.JFrame {
                 PreparedStatement pstmt = conn.prepareStatement(deleteSql);
                 pstmt.setInt(1, cancelTicketId);
                 int rs = pstmt.executeUpdate();
-                if(rs == 1){
+                if(rs > 0){
+                    JOptionPane.showMessageDialog(null, "It has been deleted.",
+                            "Alert", JOptionPane.INFORMATION_MESSAGE);
                     userBooking();
                 }
                 else{
-                    JOptionPane.showMessageDialog(null, "It has been deleted",
+                    JOptionPane.showMessageDialog(null, "Incorrect ticket information.",
                             "Alert", JOptionPane.INFORMATION_MESSAGE);
                 }
             }
@@ -714,6 +719,8 @@ public class CustomerPanel extends javax.swing.JFrame {
              
          }
          catch(Exception e){
+             if (e instanceof SQLIntegrityConstraintViolationException)
+                 JOptionPane.showMessageDialog(null, "Incorrect flight information.", "Message", JOptionPane.INFORMATION_MESSAGE);
              System.out.println("Failed populating data");
              e.printStackTrace();
          }
