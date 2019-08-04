@@ -11,6 +11,9 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
+import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
+import java.text.ParseException;
 
 /**
  *
@@ -246,13 +249,20 @@ public class UpdateFlight extends javax.swing.JFrame {
              //cs.setInt(9, Integer.parseInt(flightPrice));
              
              cs.executeUpdate();
+             JOptionPane.showMessageDialog(null, "Flight successfully updated.", "Message", JOptionPane.INFORMATION_MESSAGE);
+             dispose();
          }
          catch(Exception e){
              System.out.println("Failed in update of data");
-             e.printStackTrace();
+             if (e instanceof SQLIntegrityConstraintViolationException)
+                 JOptionPane.showMessageDialog(null, "Wrong updating information", "Message", JOptionPane.INFORMATION_MESSAGE);
+             if (e instanceof ParseException)
+                 JOptionPane.showMessageDialog(null, "Updating information is not correct", "Message", JOptionPane.INFORMATION_MESSAGE);
+             
+
          }
-        dispose();
-        JOptionPane.showMessageDialog(null, "Flight successfully updated.", "Message", JOptionPane.INFORMATION_MESSAGE);
+        
+        
     }//GEN-LAST:event_submitUpdateFlightActionPerformed
 
     private void jreturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jreturnActionPerformed
