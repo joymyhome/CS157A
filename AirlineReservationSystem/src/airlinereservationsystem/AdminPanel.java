@@ -87,6 +87,7 @@ public class AdminPanel extends javax.swing.JFrame {
         intFlightNum1 = new javax.swing.JTextField();
         jLabel18 = new javax.swing.JLabel();
         intFlightNum2 = new javax.swing.JTextField();
+        custConfBookig1 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         logOut = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -262,7 +263,7 @@ public class AdminPanel extends javax.swing.JFrame {
             }
         });
 
-        custConfBookig.setText("View Customers with Payments Above Average");
+        custConfBookig.setText("View All Bookings");
         custConfBookig.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 custConfBookigActionPerformed(evt);
@@ -296,6 +297,13 @@ public class AdminPanel extends javax.swing.JFrame {
         intFlightNum2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 intFlightNum2ActionPerformed(evt);
+            }
+        });
+
+        custConfBookig1.setText("View Customers with Payments Above Average");
+        custConfBookig1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                custConfBookig1ActionPerformed(evt);
             }
         });
 
@@ -391,8 +399,7 @@ public class AdminPanel extends javax.swing.JFrame {
                                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                                     .addComponent(jLabel10)
                                                                     .addComponent(jLabel12)
-                                                                    .addComponent(jLabel8))))
-                                                        .addGap(83, 83, 83))))
+                                                                    .addComponent(jLabel8)))))))
                                             .addGroup(layout.createSequentialGroup()
                                                 .addComponent(jLabel14)
                                                 .addGap(18, 18, 18)
@@ -425,14 +432,19 @@ public class AdminPanel extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(custAndBookings, javax.swing.GroupLayout.DEFAULT_SIZE, 333, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(146, 146, 146)
-                        .addComponent(custConfBookig, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(custConfBookig, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(35, 35, 35)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 819, Short.MAX_VALUE)
                     .addComponent(jScrollPane2))
                 .addContainerGap())
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(16, 16, 16)
+                    .addComponent(custConfBookig1, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(1147, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -449,9 +461,8 @@ public class AdminPanel extends javax.swing.JFrame {
                             .addComponent(updateFlight)
                             .addComponent(viewAllFlights, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(updateAirlinePrices))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(custConfBookig)
-                        .addGap(12, 12, 12)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(57, 57, 57)
@@ -485,7 +496,7 @@ public class AdminPanel extends javax.swing.JFrame {
                                 .addComponent(jLabel18)
                                 .addComponent(intFlightNum2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(custAndBookings)))
-                        .addGap(352, 367, Short.MAX_VALUE))
+                        .addGap(352, 373, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 470, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -531,6 +542,11 @@ public class AdminPanel extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(deleteFlight)))))
                         .addContainerGap())))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(124, 124, 124)
+                    .addComponent(custConfBookig1)
+                    .addContainerGap(689, Short.MAX_VALUE)))
         );
 
         pack();
@@ -609,7 +625,7 @@ public class AdminPanel extends javax.swing.JFrame {
     }//GEN-LAST:event_archiveActionPerformed
 
     private void custConfBookigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_custConfBookigActionPerformed
-        viewCustPaidAboveAvg();
+        viewAllBooking();
     }//GEN-LAST:event_custConfBookigActionPerformed
 
     private void custAndBookingsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_custAndBookingsActionPerformed
@@ -629,6 +645,10 @@ public class AdminPanel extends javax.swing.JFrame {
     private void intFlightNum2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_intFlightNum2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_intFlightNum2ActionPerformed
+
+    private void custConfBookig1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_custConfBookig1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_custConfBookig1ActionPerformed
 
     //Works
     private void viewAllFlights() {
@@ -1087,6 +1107,42 @@ public class AdminPanel extends javax.swing.JFrame {
              });
         }
     }
+    private void viewAllBooking(){
+        Getconnection con = new Getconnection();
+         
+         Vector<String> col = new Vector<String>();
+         Vector<Vector> dat = new Vector<Vector>();
+         try{
+             Connection conn = con.getConnection();
+             col.add("Ticket id");
+             col.add("Custom id");
+             col.add("Flight id");
+             col.add("Payment");
+             String selectQuery = "Select * from booking";
+             ResultSet rs = conn.createStatement().executeQuery(selectQuery);
+             dat.clear();
+             while(rs.next()){
+                 Vector<String> v = new Vector<String>();
+                 v.add(Integer.toString(rs.getInt("ticket_id")));
+                 v.add(Integer.toString(rs.getInt("custom_id")));
+                 v.add(Integer.toString(rs.getInt("flight_id")));
+                 v.add(Integer.toString(rs.getInt("payment")));
+             
+                 dat.add(v);
+             }
+             
+         }
+         catch(Exception e){
+             System.out.println("Failed populating data");
+             e.printStackTrace();
+         }
+         jFlightTable.setModel(new DefaultTableModel(dat, col){
+             @Override
+             public boolean isCellEditable(int row, int column) {
+                return false;
+             }
+         });
+    }
 
         
     public static void main(String args[]) {
@@ -1129,6 +1185,7 @@ public class AdminPanel extends javax.swing.JFrame {
     private javax.swing.JTextField arriveTime;
     private javax.swing.JButton custAndBookings;
     private javax.swing.JButton custConfBookig;
+    private javax.swing.JButton custConfBookig1;
     private javax.swing.JTable customerTable;
     private com.toedter.calendar.JDateChooser dateForArchive;
     private javax.swing.JButton deleteFlight;
