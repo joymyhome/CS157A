@@ -17,6 +17,7 @@ import javax.swing.table.DefaultTableModel;
 import java.time.LocalTime;
 import javax.swing.JOptionPane;
 import java.util.ArrayList;
+import java.text.ParseException;
 
 
 /**
@@ -817,8 +818,10 @@ public class AdminPanel extends javax.swing.JFrame {
          catch(Exception e){
              if (e instanceof SQLIntegrityConstraintViolationException) 
                  JOptionPane.showMessageDialog(null, "Airline information incorrect", "Message", JOptionPane.INFORMATION_MESSAGE);
+             if (e instanceof ParseException)
+                 JOptionPane.showMessageDialog(null, "Incomplete airline information", "Message", JOptionPane.INFORMATION_MESSAGE);
              System.out.println("Failed in insertion of data");
-             e.printStackTrace();
+             //e.printStackTrace();
          }
     }
     
@@ -1000,6 +1003,13 @@ public class AdminPanel extends javax.swing.JFrame {
     
     //Not sure if it works, do not want to delete any flights
     private void deleteFlight() {
+        
+        if (flightToBeDeleted.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "No flight id is provided", "Message", JOptionPane.INFORMATION_MESSAGE);
+        }
+        else{
+            
+        
          Getconnection con = new Getconnection();
          String flightId = flightToBeDeleted.getText();
          
@@ -1023,6 +1033,7 @@ public class AdminPanel extends javax.swing.JFrame {
              System.out.println("Failed to delete flight");
              e.printStackTrace();
          }
+        }
     }
     
     private void updateFlight() {
