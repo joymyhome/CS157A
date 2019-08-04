@@ -8,6 +8,7 @@ package airlinereservationsystem;
 import com.mysql.cj.jdbc.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -787,14 +788,18 @@ public class AdminPanel extends javax.swing.JFrame {
              cs.setString(6, to);
              cs.setString(7, airplaneId);
              
-             cs.executeUpdate();
+             int count = cs.executeUpdate();
+             if (count > 0)
+                JOptionPane.showMessageDialog(null, "Flight successfully added.", "Message", JOptionPane.INFORMATION_MESSAGE);
+             else
+                JOptionPane.showMessageDialog(null, "Airline information incorrect", "Message", JOptionPane.INFORMATION_MESSAGE);
          }
          catch(Exception e){
+             if (e instanceof SQLIntegrityConstraintViolationException) 
+                 JOptionPane.showMessageDialog(null, "Airline information incorrect", "Message", JOptionPane.INFORMATION_MESSAGE);
              System.out.println("Failed in insertion of data");
              e.printStackTrace();
          }
-        
-        JOptionPane.showMessageDialog(null, "Flight successfully added.", "Message", JOptionPane.INFORMATION_MESSAGE);
     }
     
     private void archiveFlights() {
@@ -986,14 +991,18 @@ public class AdminPanel extends javax.swing.JFrame {
              CallableStatement cs = (CallableStatement) conn.prepareCall("Call deleteFlight(?)");
              cs.setString(1, flightId);
              
-             cs.executeUpdate();      
+             int count = cs.executeUpdate();
+             if (count > 0) 
+                JOptionPane.showMessageDialog(null, "Flight successfully deleted.", "Message", JOptionPane.INFORMATION_MESSAGE);
+             else 
+                JOptionPane.showMessageDialog(null, "Airline information incorrect.", "Message", JOptionPane.INFORMATION_MESSAGE);
          }
          catch(Exception e){
+             if (e instanceof SQLIntegrityConstraintViolationException) 
+                 JOptionPane.showMessageDialog(null, "Airline information incorrect", "Message", JOptionPane.INFORMATION_MESSAGE);
              System.out.println("Failed to delete flight");
              e.printStackTrace();
          }
-         
-         JOptionPane.showMessageDialog(null, "Flight successfully deleted.", "Message", JOptionPane.INFORMATION_MESSAGE);
     }
     
     private void updateFlight() {
